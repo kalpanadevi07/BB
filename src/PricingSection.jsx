@@ -29,7 +29,7 @@ const fullTimeFeatures = [
 /* ══ Reusable slide-up Get Started button ══ */
 function GetStartedButton({ dark }) {
   const [hov, setHov] = useState(false);
-  const label = "Get Started →";
+  const label = "Get Started";
 
   const bg        = dark
     ? (hov ? "#d97706" : "#f5a623")
@@ -46,7 +46,7 @@ function GetStartedButton({ dark }) {
         width: "100%",
         background: bg,
         color: textColor,
-        fontSize: "16px",
+        fontSize: "20px",
         fontWeight: 700,
         height: "48px",
         borderRadius: "50px",
@@ -62,7 +62,7 @@ function GetStartedButton({ dark }) {
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: "16px",
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: "20px",
         transform: hov ? "translateY(-100%)" : "translateY(0%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
@@ -71,7 +71,7 @@ function GetStartedButton({ dark }) {
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: "16px",
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: "20px",
         transform: hov ? "translateY(0%)" : "translateY(100%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
@@ -96,7 +96,7 @@ const PricingSection = () => (
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <h2 style={{
-            fontSize: "clamp(26px, 3.2vw, 40px)",
+            fontSize: "clamp(26px, 3.2vw, 48px)",
             fontWeight: 900,
             fontFamily: "Roobert Font Family, Sans-serif",
             lineHeight: 1.1,
@@ -108,7 +108,7 @@ const PricingSection = () => (
             A price that makes sense.
           </h2>
           <p style={{
-            fontSize: "16px",
+            fontSize: "20px",
             lineHeight: 1.6,
             color: "#0a0000",
             fontWeight: 500,
@@ -137,26 +137,26 @@ const PricingSection = () => (
             flexDirection: "column",
           }}>
             <h3 style={{
-              fontSize: "28px",
+              fontSize: "36px",
               fontWeight: 800, color: "#0a0000",
               margin: "0 0 4px", letterSpacing: "-0.03em",
             }}>
               Hire Part-Time
             </h3>
-            <p style={{ fontSize: "16px", fontStyle: "italic", color: "#010008", margin: "0 0 20px" }}>
+             {/*<p style={{ fontSize: "20px", color: "#010008", margin: "15px 0 20px" }}>
               Half the hours. All the focus.
-            </p>
+            </p>*/}
 
             <p style={{
-              fontSize: "18px", fontWeight: 700, letterSpacing: "0.08em",
-              color: "#010008", margin: "0 0 4px", textTransform: "uppercase",
+              fontSize: "12px", fontWeight: 700, letterSpacing: "0.03em",
+              color: "#000000", margin: "0 0 4px", textTransform: "uppercase",marginTop:"20px",
             }}>Starting From</p>
             <span style={{
-              fontSize: "clamp(34px, 4vw, 46px)",
+              fontSize: "clamp(34px, 4vw, 48px)",
               fontWeight: 900, color: "#f5a623",
-              letterSpacing: "-0.05em", lineHeight: 1, display: "block",
+              letterSpacing: "-0.05em", lineHeight: 1, display: "block",marginTop:"0px",
             }}>£600</span>
-            <p style={{ fontSize: "18px", color: "#010008", margin: "4px 0 20px" }}>
+            <p style={{ fontSize: "14px", color: "#010008", margin: "4px 0 20px",fontWeight: 400  }}>
               / month per specialist
             </p>
 
@@ -166,7 +166,7 @@ const PricingSection = () => (
               {partTimeFeatures.map(f => (
                 <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "9px" }}>
                   <Check size={14} color="#f5a623" strokeWidth={2.5} style={{ flexShrink: 0, marginTop: "3px" }} />
-                  <span style={{ fontSize: "16px", color: "#000000", lineHeight: 1.45 }}>{f}</span>
+                  <span style={{ fontSize: "18px", color: "#000000", lineHeight: 1.45,fontWeight: 400 }}>{f}</span>
                 </li>
               ))}
             </ul>
@@ -198,25 +198,25 @@ const PricingSection = () => (
             </div>
 
             <h3 style={{
-              fontSize: "28px", fontWeight: 800, color: "#ffffff",
+              fontSize: "36px", fontWeight: 800, color: "#ffffff",
               margin: "0 0 4px", letterSpacing: "-0.03em",
             }}>
               Hire Full-Time
             </h3>
-            <p style={{ fontSize: "16px", fontStyle: "italic", color: "rgb(255, 255, 255)", margin: "0 0 20px" }}>
-              A dedicated specialist working only on your business.
-            </p>
+            {/*<p style={{ fontSize: "20px", color: "rgb(255, 255, 255)", margin: "15px 0 20px" }}>
+              All the hours. All the commitment.
+            </p>*/}
 
             <p style={{
-              fontSize: "18px", fontWeight: 700, letterSpacing: "0.08em",
-              color: "#f5a623", margin: "0 0 4px", textTransform: "uppercase",
+              fontSize: "12px", fontWeight: 700, letterSpacing: "0.03em",
+              color: "#f5a623", margin: "0 0 4px", textTransform: "uppercase",marginTop:"20px",
             }}>Starting From</p>
             <span style={{
-              fontSize: "clamp(34px, 4vw, 46px)",
+              fontSize: "clamp(34px, 4vw, 48px)",
               fontWeight: 900, color: "#ffffff",
               letterSpacing: "-0.05em", lineHeight: 1, display: "block",
             }}>£800</span>
-            <p style={{ fontSize: "18px", color: "rgb(255, 255, 255)", margin: "4px 0 20px" }}>
+            <p style={{ fontSize: "14px", color: "rgb(255, 255, 255)", margin: "4px 0 20px" }}>
               / month per specialist
             </p>
 
@@ -226,7 +226,7 @@ const PricingSection = () => (
               {fullTimeFeatures.map(f => (
                 <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "9px" }}>
                   <Check size={14} color="#f5a623" strokeWidth={2.5} style={{ flexShrink: 0, marginTop: "3px" }} />
-                  <span style={{ fontSize: "16px", color: "rgba(255,255,255)", lineHeight: 1.45 }}>{f}</span>
+                  <span style={{ fontSize: "18px", color: "rgba(255,255,255)", lineHeight: 1.45 }}>{f}</span>
                 </li>
               ))}
             </ul>
