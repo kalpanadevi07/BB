@@ -20,7 +20,7 @@ const aboutFeatures = [
   },
   {
     title: "Pre-vetted, not pot luck",
-    desc: "Every specialist passes a skills test, a portfolio review, and an English fluency check before we send their profile to you.",
+    desc: "We verify skills, portfolios, and English fluency before sharing specialist profiles.",
   },
   {
     title: "Hire the way that suits you",
@@ -35,7 +35,7 @@ const aboutFeatures = [
 const managePoints = [
   {
     title: "Plugs into what you already use",
-    desc: "Slack, Teams, Jira, ClickUp, Asana, Notion - we work where you work.",
+    desc: "Slack, Teams, Jira, ClickUp, Asana, Notion-we work where you work.",
   },
   {
     title: "One simple monthly invoice",
@@ -43,11 +43,11 @@ const managePoints = [
   },
   {
     title: "No extra overheads",
-    desc: "Salary, taxes, HR, equipment - all bundled in. You pay one fee, we handle the rest.",
+    desc: "Salary, taxes, HR, equipment-all bundled in. You pay one fee, we handle the rest.",
   },
   {
     title: "Visibility, your way",
-    desc: "Daily standups, weekly reports, monthly reviews - whatever keeps you happy.",
+    desc: "Daily standups, weekly reports, monthly reviews-whatever keeps you happy.",
   },
 ];
 
@@ -175,8 +175,8 @@ export default function CombinedSection() {
                   src={teamImg}
                   alt="Team working in office"
                   style={{
-                    width: "100%", maxWidth: 560,
-                    height: 550, objectFit: "cover",
+                    width: "100%", maxWidth: 580,
+                    height: 560, objectFit: "cover",
                     borderRadius: 14, display: "block",
                     boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
                   }}
@@ -191,19 +191,19 @@ export default function CombinedSection() {
                 fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 900,
                 color: "#000000", lineHeight: 1, letterSpacing: "-0.03em",
                 fontSize: isMobile ? 24 : isTablet ? 28 : 48,
-                marginBottom: 10, marginTop: 0,
+                marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
                 textAlign: "left",
               }}>
                 Build your dream team in days, not months.
               </h2>
               <p style={{
                 fontSize: 18, color: "#000000", lineHeight: 1.3,
-                marginBottom: 18, maxWidth: 460, textAlign: "justify",
+                marginBottom: 18, maxWidth: 500, textAlign: "justify",letterSpacing: "-0.03em",
               }}>
                 Recruit, onboard, and scale top-tier talent without the recruiter
                 fees, the HR overhead, or the six-week wait.
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 22, fontSize: 18, textAlign: "justify", maxWidth:500,}}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 22, fontSize: 18, textAlign: "justify", maxWidth:430,lineHeight:1.2, }}>
                 {aboutFeatures.map((f, i) => (
                   <FeatureItem key={i} title={f.title} desc={f.desc} />
                 ))}
@@ -232,7 +232,7 @@ export default function CombinedSection() {
                 fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 900,
                 color: "#000000", lineHeight: 1, letterSpacing: "-0.03em",
                 fontSize: isMobile ? 24 : isTablet ? 28 : 48,
-                marginBottom: 10, marginTop: 0,
+                marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
                 textAlign: "left",
               }}>
                 Manage your extended team like it's in-house.
@@ -241,14 +241,14 @@ export default function CombinedSection() {
               <p style={{
                 fontSize: 18, lineHeight: 1.3, color: "#000000",
                 margin: "0 0 18px 0",
-                textAlign: "justify",maxWidth:500,
+                textAlign: "justify",maxWidth:460,letterSpacing: "-0.03em",
               }}>
                 Same tools. Same standups. Same reporting.
                 Just a much bigger team for a much smaller bill.
               </p>
 
               <ul style={{
-                display: "flex", flexDirection: "column", gap: 12,
+                display: "flex", flexDirection: "column", gap: 5, alignItems: "flex-start",
                 listStyle: "none", padding: 0, margin: "0 0 20px 0", width: "100%",
               }}>
                 {managePoints.map(p => (
@@ -261,13 +261,13 @@ export default function CombinedSection() {
                         fontSize: 18, fontWeight: 700, color: "#0d0d0d",
                         letterSpacing: "-0.01em", lineHeight: 1.2,
                         margin: "0 0 2px 0", fontFamily: "Roobert Font Family, Sans-serif",
-                        textAlign: "justify-content,",
+                        textAlign: "left",
                       }}>
                         {p.title}
                       </p>
                       <p style={{
                         fontSize: 18, lineHeight: 1.2, color: "#000000",
-                        margin: 0, textAlign: "justify",maxWidth:500,
+                        margin: 0, textAlign: "left",maxWidth:430,gap: 5,
                       }}>
                         {p.desc}
                       </p>
