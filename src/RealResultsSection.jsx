@@ -101,27 +101,18 @@ export default function RealResultsSection() {
 
         {/* Header */}
         <h2 style={{
-          fontSize: "clamp(28px,4vw,44px)",
+          fontSize: "clamp(28px,4vw,48px)",
           fontWeight: 900,
           fontFamily: 
           "Roobert Font Family, Sans-serif",
           letterSpacing: "-0.04em",
           color: "#000000",           /* ← black */
-          margin: "0 0 10px",
+          margin: "0 0 40px",
           textAlign: "left",
         }}>
           Real teams. Real results.
         </h2>
-        <p style={{
-          fontSize: 18,
-          color: "#000000",           /* ← black */
-          lineHeight: 1.65,
-          margin: "0 0 10px",      /* ← reduced gap below subtitle */
-          maxWidth: 500,
-          textAlign: "left",
-        }}>
-          A few of the businesses we've helped scale capacity without scaling payroll.
-        </p>
+        
 
         {/* Cards */}
         <div
@@ -199,7 +190,7 @@ function Card({ card }) {
         transform: "translateX(-50%)",
         background: "#1a1340",
         color: "#f5a623",
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 700,
         letterSpacing: "0.04em",
         padding: "4px 12px",
@@ -227,7 +218,7 @@ function Card({ card }) {
         </div>
 
         <span style={{
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: 600,
           color: "#000000",           /* ← black */
           background: "#fef3c7",
@@ -241,7 +232,7 @@ function Card({ card }) {
 
       {/* name + desc */}
       <p style={{
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 800,
         color: "#000000",             /* ← black */
         margin: "0 0 6px",
@@ -251,11 +242,12 @@ function Card({ card }) {
         {card.name}
       </p>
       <p style={{
-        fontSize: 15,
+        fontSize: 18,
         color: "#000000",             /* ← black */
         lineHeight: 1.6,
-        margin: "0 0 16px",
-        textAlign: "left",           /* ← force left */
+        margin: "8px 0 10px",
+        textAlign: "left",
+                   /* ← force left */
       }}>
         {card.desc}
       </p>
@@ -269,8 +261,8 @@ function Card({ card }) {
           <div key={s.label} style={{
             display: "flex", justifyContent: "space-between", alignItems: "center",
           }}>
-            <span style={{ fontSize: 15, color: "#000000" }}>{s.label}</span>   {/* ← black */}
-            <span style={{ fontSize: 15, fontWeight: 800, color: "#000000" }}>{s.value}</span> {/* ← black */}
+            <span style={{ fontSize: 16, color: "#000000" }}>{s.label}</span>   {/* ← black */}
+            <span style={{ fontSize: 16, fontWeight: 800, color: "#000000" }}>{s.value}</span> {/* ← black */}
           </div>
         ))}
       </div>

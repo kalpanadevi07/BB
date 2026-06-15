@@ -35,7 +35,7 @@ export default function FAQSection() {
   return (
     <div style={{ background: "#ffffff", width: "100%" }}>
       <div style={{
-        maxWidth: 1440,
+        maxWidth: 1200,
         margin: "0 auto",
         padding: isMobile ? "48px 20px" : isTablet ? "60px 32px" : "72px 40px",
       }}>
@@ -55,7 +55,7 @@ export default function FAQSection() {
           }}>
             <h2 style={{
               fontFamily: "Roobert Font Family, Sans-serif",
-              fontSize: isMobile ? 38 : isTablet ? 36 : 40,
+              fontSize: isMobile ? 38 : isTablet ? 36 : 48,
               fontWeight: 800,
               color: "#000000",
               lineHeight: 1.1,
@@ -65,20 +65,6 @@ export default function FAQSection() {
             }}>
               Questions,<br />answered.
             </h2>
-
-            <p style={{
-              fontFamily: "Roobert Font Family, Sans-serif",
-              fontSize: 16,
-              color: "#000000",
-              lineHeight: 1.7,
-              marginBottom: 32,
-              marginTop: 0,
-              maxWidth: isDesktop ? 380 : "100%",
-              textAlign: "left",
-            }}>
-              Everything you need to know before you hire your first specialist.
-              Still curious? Drop us a line.
-            </p>
 
             <TalkButton onClick={handleTalkToUs} />
           </div>
@@ -134,7 +120,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
       >
         <span style={{
           fontFamily: "Roobert Font Family, Sans-serif",
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 600,
           color: "#000000",
           lineHeight: 1.4,
@@ -176,8 +162,11 @@ function FAQItem({ faq, isOpen, onToggle }) {
   );
 }
 
+/* ══ Talk to us — slide-up effect ══ */
 function TalkButton({ onClick }) {
   const [hovered, setHovered] = useState(false);
+  const label = "Talk to us";
+
   return (
     <button
       onClick={onClick}
@@ -186,7 +175,7 @@ function TalkButton({ onClick }) {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 10,
+        justifyContent: "center",
         background: hovered ? "#2a1650" : "#1e0f3c",
         color: "#ffffff",
         border: "none",
@@ -195,17 +184,37 @@ function TalkButton({ onClick }) {
         WebkitAppearance: "none",
         appearance: "none",
         borderRadius: 100,
-        padding: "14px 28px",
+        padding: "0 28px",
+        height: "50px",
         fontFamily: "Roobert Font Family, Sans-serif",
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: 600,
         cursor: "pointer",
-        transition: "all 0.22s ease",
-        transform: hovered ? "translateY(-1px)" : "translateY(0)",
+        transition: "background 0.22s ease",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      Talk to us
-      <span style={{ fontSize: 15 }}>→</span>
+      {/* Text 1 — slides out upward */}
+      <span style={{
+        position: "absolute", inset: 0,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        whiteSpace: "nowrap", fontWeight: 600, fontSize: 18,
+        transform: hovered ? "translateY(-100%)" : "translateY(0%)",
+        transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
+      }}>{label}</span>
+
+      {/* Text 2 — slides in from below */}
+      <span style={{
+        position: "absolute", inset: 0,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        whiteSpace: "nowrap", fontWeight: 600, fontSize: 18,
+        transform: hovered ? "translateY(0%)" : "translateY(100%)",
+        transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
+      }}>{label}</span>
+
+      {/* Spacer — keeps button width stable */}
+      <span style={{ visibility: "hidden", fontWeight: 600, fontSize: 20 }}>{label}</span>
     </button>
   );
 }

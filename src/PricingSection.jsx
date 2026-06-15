@@ -26,15 +26,15 @@ const fullTimeFeatures = [
   "Free replacement if not the right fit",
 ];
 
-/* ══ Reusable slide-up Get Started button ══ */
+/* ══ Reusable slide-up Get Started button — sized to content ══ */
 function GetStartedButton({ dark }) {
   const [hov, setHov] = useState(false);
   const label = "Get Started";
 
   const bg        = dark
-    ? (hov ? "#d97706" : "#f5a623")
-    : (hov ? "#2d2569" : "#1a1340");
-  const textColor = dark ? "#0d0d0d" : "#ffffff";
+    ? (hov ? "#ffffff" : "#f5a623")
+    : (hov ? "#f5a623" : "#1a1340");
+  const textColor = dark ? "#1a1340" : "#ffffff";
 
   return (
     <button
@@ -42,13 +42,12 @@ function GetStartedButton({ dark }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
-        marginTop: "24px",
-        width: "100%",
         background: bg,
         color: textColor,
-        fontSize: "20px",
+        fontSize: "16px",
         fontWeight: 700,
-        height: "48px",
+        height: "44px",
+        padding: "0 28px",
         borderRadius: "50px",
         border: "none",
         cursor: "pointer",
@@ -56,13 +55,14 @@ function GetStartedButton({ dark }) {
         transition: "background 0.2s",
         position: "relative",
         overflow: "hidden",
+        flexShrink: 0,
       }}
     >
       {/* Text 1 — slides out upward */}
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: "20px",
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: "16px",
         transform: hov ? "translateY(-100%)" : "translateY(0%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
@@ -71,13 +71,13 @@ function GetStartedButton({ dark }) {
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: "20px",
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: "16px",
         transform: hov ? "translateY(0%)" : "translateY(100%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
 
       {/* Spacer */}
-      <span style={{ visibility: "hidden", fontWeight: 700, fontSize: "16px" }}>{label}</span>
+      <span style={{ visibility: "hidden", fontWeight: 700, fontSize: "16px", whiteSpace: "nowrap" }}>{label}</span>
     </button>
   );
 }
@@ -114,7 +114,7 @@ const PricingSection = () => (
             fontWeight: 500,
             margin: 0,
           }}>
-            Transparent monthly pricing in pounds. Pay only after your specialist is onboarded.
+            Pay only after your specialist is onboarded.
           </p>
         </div>
 
@@ -143,36 +143,40 @@ const PricingSection = () => (
             }}>
               Hire Part-Time
             </h3>
-             {/*<p style={{ fontSize: "20px", color: "#010008", margin: "15px 0 20px" }}>
-              Half the hours. All the focus.
-            </p>*/}
 
-            <p style={{
-              fontSize: "12px", fontWeight: 700, letterSpacing: "0.03em",
-              color: "#000000", margin: "0 0 4px", textTransform: "uppercase",marginTop:"20px",
-            }}>Starting From</p>
-            <span style={{
-              fontSize: "clamp(34px, 4vw, 48px)",
-              fontWeight: 900, color: "#f5a623",
-              letterSpacing: "-0.05em", lineHeight: 1, display: "block",marginTop:"0px",
-            }}>£600</span>
-            <p style={{ fontSize: "14px", color: "#010008", margin: "4px 0 20px",fontWeight: 400  }}>
-              / month per specialist
-            </p>
+            <div style={{ borderTop: "1px solid #000000", margin: "20px 0 18px" }} />
 
-            <div style={{ borderTop: "1px solid #000000", marginBottom: "18px" }} />
-
-            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 auto", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: "10px" }}>
               {partTimeFeatures.map(f => (
                 <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "9px" }}>
                   <Check size={14} color="#f5a623" strokeWidth={2.5} style={{ flexShrink: 0, marginTop: "3px" }} />
-                  <span style={{ fontSize: "18px", color: "#000000", lineHeight: 1.45,fontWeight: 400 }}>{f}</span>
+                  <span style={{ fontSize: "18px", color: "#000000", lineHeight: 1.45, fontWeight: 400 }}>{f}</span>
                 </li>
               ))}
             </ul>
 
-            {/* ← slide-up button, dark variant */}
-            <GetStartedButton dark={false} />
+            {/* Pricing block — pushed to bottom */}
+            <div style={{ marginTop: "auto" }}>
+              <p style={{
+                fontSize: "12px", fontWeight: 700, letterSpacing: "0.03em",
+                color: "#000000", margin: "0 0 4px", textTransform: "uppercase",
+              }}>Starting From</p>
+
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+                <div>
+                  <span style={{
+                    fontSize: "clamp(34px, 4vw, 48px)",
+                    fontWeight: 900, color: "#f5a623",
+                    letterSpacing: "-0.05em", lineHeight: 1, display: "inline-block",
+                  }}>£600</span>
+                  <span style={{ fontSize: "14px", color: "#010008", fontWeight: 400, marginLeft: 8 }}>
+                    / month per specialist
+                  </span>
+                </div>
+
+                <GetStartedButton dark={false} />
+              </div>
+            </div>
           </div>
 
           {/* ── Full-Time ── */}
@@ -189,12 +193,12 @@ const PricingSection = () => (
             <div style={{
               position: "absolute", top: "-16px", left: "50%",
               transform: "translateX(-50%)",
-              background: "#f5a623", color: "#0d0d0d",
+              background: "#f5a623", color: "#28174F",
               fontSize: "10px", fontWeight: 800,
               letterSpacing: "0.1em", textTransform: "uppercase",
               padding: "5px 16px", borderRadius: "50px", whiteSpace: "nowrap",
             }}>
-              Most Popular
+              Recommended
             </div>
 
             <h3 style={{
@@ -203,26 +207,10 @@ const PricingSection = () => (
             }}>
               Hire Full-Time
             </h3>
-            {/*<p style={{ fontSize: "20px", color: "rgb(255, 255, 255)", margin: "15px 0 20px" }}>
-              All the hours. All the commitment.
-            </p>*/}
 
-            <p style={{
-              fontSize: "12px", fontWeight: 700, letterSpacing: "0.03em",
-              color: "#f5a623", margin: "0 0 4px", textTransform: "uppercase",marginTop:"20px",
-            }}>Starting From</p>
-            <span style={{
-              fontSize: "clamp(34px, 4vw, 48px)",
-              fontWeight: 900, color: "#ffffff",
-              letterSpacing: "-0.05em", lineHeight: 1, display: "block",
-            }}>£800</span>
-            <p style={{ fontSize: "14px", color: "rgb(255, 255, 255)", margin: "4px 0 20px" }}>
-              / month per specialist
-            </p>
+            <div style={{ borderTop: "1px solid rgba(255,255,255)", margin: "20px 0 18px" }} />
 
-            <div style={{ borderTop: "1px solid rgba(255,255,255)", marginBottom: "18px" }} />
-
-            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 auto", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: "10px" }}>
               {fullTimeFeatures.map(f => (
                 <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "9px" }}>
                   <Check size={14} color="#f5a623" strokeWidth={2.5} style={{ flexShrink: 0, marginTop: "3px" }} />
@@ -231,8 +219,28 @@ const PricingSection = () => (
               ))}
             </ul>
 
-            {/* ← slide-up button, amber variant */}
-            <GetStartedButton dark={true} />
+            {/* Pricing block — pushed to bottom */}
+            <div style={{ marginTop: "auto" }}>
+              <p style={{
+                fontSize: "12px", fontWeight: 700, letterSpacing: "0.03em",
+                color: "#f5a623", margin: "0 0 4px", textTransform: "uppercase",
+              }}>Starting From</p>
+
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+                <div>
+                  <span style={{
+                    fontSize: "clamp(34px, 4vw, 48px)",
+                    fontWeight: 900, color: "#ffffff",
+                    letterSpacing: "-0.05em", lineHeight: 1, display: "inline-block",
+                  }}>£800</span>
+                  <span style={{ fontSize: "14px", color: "rgba(255,255,255)", marginLeft: 8 }}>
+                    / month per specialist
+                  </span>
+                </div>
+
+                <GetStartedButton dark={true} />
+              </div>
+            </div>
           </div>
 
         </div>

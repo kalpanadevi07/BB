@@ -122,7 +122,7 @@ export default function TeamBuilderSection() {
               </h2>
 
               <p style={{
-                fontSize: 20, lineHeight: 1.55,
+                fontSize: 18, lineHeight: 1.55,
                 color: "#ffffff",
                 margin: "0 0 18px",
                 textAlign: "left",

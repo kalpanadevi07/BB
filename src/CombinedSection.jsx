@@ -15,39 +15,39 @@ function useWindowWidth() {
 
 const aboutFeatures = [
   {
-    title: "World-class talent, India-based",
-    desc: "Onboard experienced specialists without opening an office or hiring an HR team.",
+    title: "Top Talent from India",
+    desc: "Experienced experts ready to contribute immediately.",
   },
   {
-    title: "Pre-vetted, not pot luck",
-    desc: "We verify skills, portfolios, and English fluency before sharing specialist profiles.",
+    title: "Pre-Vetted Experts",
+    desc: "Verified expertise, experience, and communication skills.",
   },
   {
-    title: "Hire the way that suits you",
-    desc: "Full-time or part-time. Switch as your workload shifts.",
+    title: "Flexible Hiring",
+    desc: "Hire full-time, part-time, or project-based.",
   },
   {
-    title: "Built for your time zone",
-    desc: "UK working hours, real-time collaboration, zero overnight ping-pong.",
+    title: "UK Time Zone Friendly",
+    desc: "Work seamlessly during your business hours.",
   },
 ];
 
 const managePoints = [
   {
-    title: "Plugs into what you already use",
-    desc: "Slack, Teams, Jira, ClickUp, Asana, Notion-we work where you work.",
+    title: "Works With Your Tools",
+    desc: "Slack, Teams, Jira, ClickUp, Asana, Notion, and more.",
   },
   {
-    title: "One simple monthly invoice",
+    title: "One Simple Monthly Invoice",
     desc: "Billed monthly in GBP. No timesheets to argue over. No surprises.",
   },
   {
-    title: "No extra overheads",
-    desc: "Salary, taxes, HR, equipment-all bundled in. You pay one fee, we handle the rest.",
+    title: "We Handle the Admin",
+    desc: "Payroll, HR, and compliance are taken care of.",
   },
   {
-    title: "Visibility, your way",
-    desc: "Daily standups, weekly reports, monthly reviews-whatever keeps you happy.",
+    title: "Stay in Control",
+    desc: "Regular updates and complete visibility into your team's work.",
   },
 ];
 
@@ -84,8 +84,8 @@ function HireButton({ onClick }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "#000000" : "#f5a623",
-        color: hovered ? "#ffffff" : "#000000",
+        background: hovered ? "#28174f" : "#f5a623",
+        color: hovered ? "#ffffff" : "#28174f",
         border: "none",
         borderRadius: "999px",
         padding: "0 28px",
@@ -162,7 +162,7 @@ export default function CombinedSection() {
       <div style={{ background: "#ffffff", width: "100%" }}>
         <div style={{
           maxWidth: 1330, margin: "0 auto",
-          padding: `48px ${hPad} 40px`,
+          padding: `80px ${hPad} 40px`,
         }}>
           <div style={isDesktop
             ? { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 52, alignItems: "center" }
@@ -175,8 +175,8 @@ export default function CombinedSection() {
                   src={teamImg}
                   alt="Team working in office"
                   style={{
-                    width: "100%", maxWidth: 580,
-                    height: 560, objectFit: "cover",
+                    width: "100%", maxWidth: 500,
+                    height: 480, objectFit: "cover",
                     borderRadius: 14, display: "block",
                     boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
                   }}
@@ -194,14 +194,14 @@ export default function CombinedSection() {
                 marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
                 textAlign: "left",
               }}>
-                Build your dream team in days, not months.
+               Build your dream team in days,
+                <span style={{ color: "#f5a623" }}> not months.</span>
               </h2>
               <p style={{
                 fontSize: 18, color: "#000000", lineHeight: 1.3,
                 marginBottom: 18, maxWidth: 500, textAlign: "justify",letterSpacing: "-0.03em",
               }}>
-                Recruit, onboard, and scale top-tier talent without the recruiter
-                fees, the HR overhead, or the six-week wait.
+                Get skilled professionals from India without recruiter fees, HR headaches, or lengthy hiring processes.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 22, fontSize: 18, textAlign: "justify", maxWidth:430,lineHeight:1.2, }}>
                 {aboutFeatures.map((f, i) => (
@@ -235,7 +235,8 @@ export default function CombinedSection() {
                 marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
                 textAlign: "left",
               }}>
-                Manage your extended team like it's in-house.
+                Manage your extended team like 
+                 <span style={{ color: "#f5a623" }}> it's in-house.</span>
               </h2>
 
               <p style={{
@@ -243,8 +244,7 @@ export default function CombinedSection() {
                 margin: "0 0 18px 0",
                 textAlign: "justify",maxWidth:460,letterSpacing: "-0.03em",
               }}>
-                Same tools. Same standups. Same reporting.
-                Just a much bigger team for a much smaller bill.
+              Same tools. Same standups. Same reporting. Just a much bigger team for a much smaller bill.
               </p>
 
               <ul style={{
@@ -303,8 +303,8 @@ export default function CombinedSection() {
                   src={teamOffice}
                   alt="Team working in office"
                   style={{
-                    width: "100%", maxWidth: 600,
-                    height: 600, objectFit: "cover",
+                    width: "100%", maxWidth: 500,
+                    height: 480, objectFit: "cover",
                     borderRadius: 14, display: "block",
                     boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
                   }}

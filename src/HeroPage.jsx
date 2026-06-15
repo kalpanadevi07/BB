@@ -212,8 +212,8 @@ function StickyBtn({ compact }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
-        background: hov ? "#0c0127" : "#1F1240",
-        color: "#ffffff",
+        background: hov ? "#f5a623" : "#28174f",
+        color: hov? "#28174f" : "#ffffff",
         fontFamily: "Roobert Font Family, Sans-serif",
         fontSize: compact ? 16 : 16,
         fontWeight: 700,
@@ -391,7 +391,8 @@ function HoverButton({ compact }) {
         fontSize: fs,
         paddingLeft: compact ? 18 : 22,
         paddingRight: 6,
-        background: hov ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.12)",
+        background: hov? "#f5a623" : "#ffffff",
+        color: hov? "#28174f" : "#28174f",
         transition: "background 0.22s ease",
         height: compact ? 46 : 52,
         gap: 0,
@@ -438,7 +439,8 @@ function SubmitButton({ compact, onClick }) {
       style={{
         ...s.btnPrimary, padding: 0, height, fontSize: fs,
         marginTop: compact ? 10 : 24,
-        background: hov ? "#2e1a52" : "#1e1233",
+        background: hov? "#f5a623" : "#28174f",
+        color: hov? "#28174f" : "#ffffff",
         boxShadow: hov ? "0 8px 24px rgba(30,18,51,0.35)" : "none",
         transform: hov ? "translateY(-1px)" : "translateY(0)",
         transition: "all 0.22s ease",

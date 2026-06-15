@@ -11,9 +11,8 @@ function useWindowWidth() {
 }
 
 const testimonials = [
-  { quote: "I have worked with BrandingBeez now for over 3 years across 2 agencies I worked for. As well as personally. The team are amazing at design and development work. Nothing is too much trouble and they always go above and beyond. Amazing team! Thanks Raje!"
-, name: "James Kearney", role: "Business Development Manager,Focus", countryCode: "gb" },
-  { quote: "Our paid media results improved significantly within the first month. Having a dedicated specialist who's fully focused on our account made all the difference.", name: "Daniel Fechete", role: "COO, New Vision Tech", countryCode: "gb" },
+  { quote: "I have worked with BrandingBeez now for over 3 years across 2 agencies I worked for. As well as personally. The team are amazing at design and development work. Nothing is too much trouble and they always go above and beyond. Amazing team! Thanks Raje!", name: "James Kearney", role: "Business Development Manager, Focus", countryCode: "gb" },
+  { quote: "Branding Beez have been a great help to my business. Before meeting Raje and her team, I was doing the sales, building the websites and handling all the tech and aftercare. Now I have the time to grow the business, working 'ON' it, instead of constantly 'IN' it. So they've been a gamechanger for me and my business. Even taking my first holiday this year WITHOUT my laptop! Thanks so much!", name: "Gemma", role: "Founder, Website Architect", countryCode: "gb" },
   { quote: "I was sceptical at first, but the quality and communication blew me away. It feels like hiring a full-time team member without any of the HR headaches.", name: "Robert Black", role: "Founder, New Vision Tech", countryCode: "de" },
   { quote: "We scaled our content output threefold in 90 days. The specialist understood our brand voice from week one and just ran with it.", name: "Sarah Collins", role: "CEO, Bright Labs", countryCode: "au" },
   { quote: "BrandingBeez saved us from a very expensive agency retainer. Same output, a fraction of the cost, and we own every relationship directly.", name: "James Carter", role: "Head of Product, Stackly", countryCode: "ca" },
@@ -25,7 +24,7 @@ const testimonials = [
 
 function getInitial(name) { return name.charAt(0).toUpperCase(); }
 
-function FlagIcon({ countryCode }) {
+/* function FlagIcon({ countryCode }) {
   return (
     <img
       src={`https://flagcdn.com/w40/${countryCode}.png`}
@@ -34,23 +33,35 @@ function FlagIcon({ countryCode }) {
       style={{ width: 26, height: 18, objectFit: "cover", borderRadius: 3, flexShrink: 0 }}
     />
   );
+} */
+
+function StarRating() {
+  return (
+    <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
+      {[1,2,3,4,5].map(i => (
+        <svg key={i} width="18" height="18" viewBox="0 0 20 20" fill="#f5a623">
+          <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.44.91-5.32L2.27 6.62l5.34-.78z"/>
+        </svg>
+      ))}
+    </div>
+  );
 }
 
-const CARD_HEIGHT = 420;
+const CARD_HEIGHT = 600;
 const GAP = 16;
-const VISIBLE = 2.3; // 2 full cards + partial peek
+const VISIBLE = 2.3;
 
 export default function TestimonialsSection() {
-  const width = useWindowWidth();
-  const isMobile = width < 600;
-  const isTablet = width >= 600 && width < 1024;
+  const width     = useWindowWidth();
+  const isMobile  = width < 600;
+  const isTablet  = width >= 600 && width < 1024;
   const isDesktop = width >= 1024;
 
-  const sidePad = isMobile ? 40 : isTablet ? 64 : 80;
-  const leftColW = isDesktop ? 320 : 0;
-  const rightW = Math.min(width, 1200) - sidePad - leftColW;
+  const sidePad    = isMobile ? 40 : isTablet ? 64 : 80;
+  const leftColW   = isDesktop ? 320 : 0;
+  const rightW     = Math.min(width, 1200) - sidePad - leftColW;
   const visibleCards = isMobile ? 1.2 : isTablet ? 1.8 : VISIBLE;
-  const CARD_W = Math.floor((rightW - GAP * (Math.ceil(visibleCards) - 1)) / visibleCards);
+  const CARD_W     = Math.floor((rightW - GAP * (Math.ceil(visibleCards) - 1)) / visibleCards);
 
   const maxIndex = testimonials.length - Math.floor(visibleCards);
   const [current, setCurrent] = useState(0);
@@ -64,24 +75,6 @@ export default function TestimonialsSection() {
     <div style={{ background: "#ffffff", width: "100%", overflow: "hidden" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: containerPad }}>
 
-        <h2
-  style={{
-    fontFamily: "Roobert Font Family, Sans-serif",
-    fontSize: isMobile ? 38 : isTablet ? 36 : 40,
-    fontWeight: 800,
-    color: "#000000",
-    lineHeight: 1.12,
-    letterSpacing: "-0.02em",
-    marginTop:0,
-    marginBottom: 32,
-    textAlign: "left",
-  }}
->
-  Loved by teams who hate
-  <br />
-  hiring drama.
-</h2>
-
         {/* Body row — left col + slider side by side */}
         <div style={{
           display: isDesktop ? "grid" : "flex",
@@ -91,17 +84,21 @@ export default function TestimonialsSection() {
           alignItems: "flex-start",
         }}>
 
-          {/* LEFT — description + arrows */}
+          {/* LEFT — heading + arrows */}
           <div style={{ paddingRight: isDesktop ? 32 : 0, marginBottom: !isDesktop ? 32 : 0 }}>
-            <p style={{
-              fontSize: 16,
+            <h2 style={{
+              fontFamily: "'Sora', sans-serif",
+              fontSize: isMobile ? 32 : isTablet ? 36 : 48,
+              fontWeight: 800,
               color: "#000000",
-              lineHeight: 1.7,
-              marginBottom: 40,
+              lineHeight: 1.12,
+              letterSpacing: "-0.02em",
+              marginTop: 0,
+              marginBottom: 32,
               textAlign: "left",
             }}>
-              Over 50 UK businesses trust BrandingBeez to scale their teams without the agency fees, long notice periods, or hiring headaches.
-            </p>
+             Proven by Results, Powered by Trust
+            </h2>
 
             <div style={{ display: "flex", gap: 12 }}>
               <ArrowBtn direction="left"  onClick={prev} disabled={current === 0} />
@@ -147,41 +144,54 @@ function Card({ t, cardWidth, cardHeight }) {
       flexShrink: 0,
       position: "relative",
       overflow: "hidden",
-       textAlign: "left",
+      textAlign: "left",
     }}>
-      <div style={{
-        position: "absolute", top: 18, right: 20,
-        color: "#f5a623", fontSize: 30,
-        fontFamily: "Roobert Font Family, Sans-serif", lineHeight: 1,
-      }}>"</div>
 
-      <p style={{
-        fontSize: 16, color: "#000000", lineHeight: 1.7,
-        paddingRight: 24, alignSelf: "flex-start", flexGrow: 1,
-      }}>
-        {t.quote}
-      </p>
+      {/* Top section: stars + quote */}
+      <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+        {/* 5 stars */}
+        <StarRating />
 
-      <div style={{ borderTop: "1px solid #e8e0d4", paddingTop: 16, marginTop: 16 }}>
+        {/* Quote text */}
+        <p style={{
+          fontSize: 18,
+          color: "#000000",
+          lineHeight: 1.6,
+          paddingRight: 8,
+          margin: 0,
+          flexGrow: 1,
+        }}>
+          {t.quote}
+        </p>
+      </div>
+
+      {/* Author row — pinned to bottom */}
+      <div style={{ borderTop: "1px solid #e8e0d4", paddingTop: 16, marginTop: 20 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{
-              width: 36, height: 36, borderRadius: "50%",
+              width: 40, height: 40, borderRadius: "50%",
               background: "#f5a623",
               display: "flex", alignItems: "center", justifyContent: "center",
-              color: "#fff", fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 700, fontSize: 18,
-              flexShrink: 0,
+              color: "#fff", fontFamily: "'Sora', sans-serif",
+              fontWeight: 700, fontSize: 16, flexShrink: 0,
             }}>
               {getInitial(t.name)}
             </div>
             <div>
-              <p style={{ fontFamily: "Roobert Font Family, Sans-serif", fontSize: 18, fontWeight: 700, color: "#111", marginBottom: 1 }}>
+              <p style={{
+                fontFamily: "'Sora', sans-serif",
+                fontSize: 18, fontWeight: 700,
+                color: "#111", margin: 0,
+              }}>
                 {t.name}
               </p>
-              <p style={{ fontSize: 14, color: "#000000",lineHeight: 1. }}>{t.role}</p>
+              <p style={{ fontSize: 14, color: "#131010", margin: 0, marginTop: 2, lineHeight: 1.3 }}>
+                {t.role}
+              </p>
             </div>
           </div>
-          <FlagIcon countryCode={t.countryCode} />
+          {/* <FlagIcon countryCode={t.countryCode} /> */}
         </div>
       </div>
     </div>

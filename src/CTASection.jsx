@@ -12,7 +12,7 @@ function useWindowWidth() {
 
 const stats = [
   { number: "48hrs",  label: "Shortlist\ndelivery" },
-  { number: "5+",     label: "UK agencies using\nour specialists" },
+  { number: "6+",     label: "UK agencies using\nour specialists" },
   { number: "7 days", label: "To live in your\nworkflow" },
 ];
 
@@ -80,20 +80,24 @@ export default function CTASection() {
 
             <h2 style={{
               fontFamily: "Roobert Font Family, Sans-serif",
-              fontSize: isMobile ? 28 : isTablet ? 36 : 48,
+              fontSize: isMobile ? 28 : isTablet ? 36 : 64,
               fontWeight: 800,
               color: "#1e0f3c",
               lineHeight: 1.1,
               letterSpacing: "-0.02em",
-              marginBottom: 0,
+              marginBottom: 50,
             }}>
               Ready when you are.
             </h2>
 
+             <div>
+            <GetStartedButton onClick={handleGetStarted} />
+              </div>
+
             {/* Divider */}
             <div style={{
               width: "55%",
-              maxWidth: 480,
+              maxWidth: 800,
               height: 1,
               background: "rgba(30,15,60,0.15)",
               margin: "32px auto",
@@ -111,7 +115,7 @@ export default function CTASection() {
                 <div key={i} style={{ textAlign: "center" }}>
                   <div style={{
                     fontFamily: "Roobert Font Family, Sans-serif",
-                    fontSize: isMobile ? 24 : 34,
+                    fontSize: isMobile ? 24 : 40,
                     fontWeight: 800,
                     color: "#1e0f3c",
                     lineHeight: 1,
@@ -132,7 +136,6 @@ export default function CTASection() {
               ))}
             </div>
 
-            <GetStartedButton onClick={handleGetStarted} />
           </div>
 
         </div>
@@ -141,8 +144,11 @@ export default function CTASection() {
   );
 }
 
+/* ══ Get Started — slide-up effect ══ */
 function GetStartedButton({ onClick }) {
   const [hovered, setHovered] = useState(false);
+  const label = "Get started";
+
   return (
     <button
       onClick={onClick}
@@ -151,7 +157,7 @@ function GetStartedButton({ onClick }) {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 10,
+        justifyContent: "center",
         background: hovered ? "#2a1650" : "#1e0f3c",
         color: "#ffffff",
         border: "none",
@@ -160,17 +166,37 @@ function GetStartedButton({ onClick }) {
         WebkitAppearance: "none",
         appearance: "none",
         borderRadius: 100,
-        padding: "14px 30px",
+        padding: "0 30px",
+        height: "58px",
         fontFamily: "Roobert Font Family, Sans-serif",
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 600,
         cursor: "pointer",
-        transition: "all 0.22s ease",
-        transform: hovered ? "translateY(-1px)" : "translateY(0)",
+        transition: "background 0.22s ease",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      Get started
-      <span style={{ fontSize: 16 }}>→</span>
+      {/* Text 1 — slides out upward */}
+      <span style={{
+        position: "absolute", inset: 0,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        whiteSpace: "nowrap", fontWeight: 600, fontSize: 20,
+        transform: hovered ? "translateY(-100%)" : "translateY(0%)",
+        transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
+      }}>{label}</span>
+
+      {/* Text 2 — slides in from below */}
+      <span style={{
+        position: "absolute", inset: 0,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        whiteSpace: "nowrap", fontWeight: 600, fontSize: 20,
+        transform: hovered ? "translateY(0%)" : "translateY(100%)",
+        transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
+      }}>{label}</span>
+
+      {/* Spacer — keeps button width stable */}
+      <span style={{ visibility: "hidden", fontWeight: 600, fontSize: 20 }}>{label}</span>
     </button>
   );
 }
