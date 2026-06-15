@@ -17,7 +17,7 @@ function BuildTeamButton({ total, monthly, onClick }) {
   const [hov, setHov] = useState(false);
   const active = total >= 2;
   const label  = active
-    ? `Build my team — £${monthly.toLocaleString()}/mo →`
+    ? `Build my team — £${monthly.toLocaleString()}/mo `
     : "Pick at least 2 specialists";
 
   return (
@@ -30,7 +30,7 @@ function BuildTeamButton({ total, monthly, onClick }) {
         width: "100%",
         background: active ? (hov ? "#d97706" : "#f5a623") : "rgba(255,255,255,.10)",
         color: active ? "#0d0d0d" : "#ffffff",
-        fontSize: 16, fontWeight: 700,
+        fontSize: 20, fontWeight: 700,
         height: "48px",
         borderRadius: "50px", border: "none",
         cursor: active ? "pointer" : "default",
@@ -45,7 +45,7 @@ function BuildTeamButton({ total, monthly, onClick }) {
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: 16,
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: 20,
         transform: active && hov ? "translateY(-100%)" : "translateY(0%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
@@ -54,13 +54,13 @@ function BuildTeamButton({ total, monthly, onClick }) {
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: 16,
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: 20,
         transform: active && hov ? "translateY(0%)" : "translateY(100%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
 
       {/* Spacer — keeps button width stable */}
-      <span style={{ visibility: "hidden", fontWeight: 700, fontSize: 16 }}>{label}</span>
+      <span style={{ visibility: "hidden", fontWeight: 700, fontSize: 20 }}>{label}</span>
     </button>
   );
 }
@@ -93,7 +93,7 @@ export default function TeamBuilderSection() {
         fontFamily: "Roobert Font Family, Sans-serif",
         boxSizing: "border-box",
       }}>
-        <div style={{ maxWidth: "1000px", margin: "0 auto", marginTop: "1px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", marginTop: "0px", marginBottom: "40px" }}>
 
           <div className="tbWrap" style={{
             background: "linear-gradient(135deg,#1a1340 0%,#251855 60%,#2a1a50 100%)",
@@ -105,13 +105,13 @@ export default function TeamBuilderSection() {
 
             {/* ══ LEFT ══ */}
             <div style={{
-              padding: "32px 30px",
-              borderRight: "1px solid rgba(255,255,255,.08)",
+              padding: "40px 30px",
+              borderRight: "1px solid rgba(255,255,255,.08)",borderLeft: "10px solid rgba(255,255,255,.08)",
               display: "flex",
               flexDirection: "column",
             }}>
               <h2 style={{
-                fontSize: "clamp(22px,2.4vw,28px)",
+                fontSize: "clamp(22px,2.4vw,36px)",
                 fontWeight: 900, color: "#fff",
                 letterSpacing: "-0.0em", lineHeight: 1.1,
                 margin: "0 0 8px",
@@ -122,7 +122,7 @@ export default function TeamBuilderSection() {
               </h2>
 
               <p style={{
-                fontSize: 15, lineHeight: 1.55,
+                fontSize: 20, lineHeight: 1.55,
                 color: "#ffffff",
                 margin: "0 0 18px",
                 textAlign: "left",
@@ -146,13 +146,13 @@ export default function TeamBuilderSection() {
                     transition: "all .25s",
                   }}>
                     <p style={{
-                      fontSize: 16, fontWeight: 700,
-                      letterSpacing: "0.08em", textTransform: "uppercase",
+                      fontSize: 18, fontWeight: 700,
+                      letterSpacing: "0.0em", textTransform: "uppercase",
                       color: d.active ? "#f5a623" : "#ffffff",
                       margin: "0 0 3px",
                     }}>{d.tier}</p>
                     <p style={{
-                      fontSize: 16, fontWeight: 900,
+                      fontSize: 18, fontWeight: 900,
                       color: d.active ? "#f5a623" : "#ffffff",
                       margin: 0, letterSpacing: "-0.03em",
                     }}>{d.val}</p>
@@ -168,20 +168,20 @@ export default function TeamBuilderSection() {
                 marginBottom: 16,
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 7 }}>
-                  <span style={{ fontSize: 16, color: "#ffffff" }}>
+                  <span style={{ fontSize: 18, color: "#ffffff" }}>
                     {total} × Full-Time @ £{RATE}/mo
                   </span>
-                  <span style={{ fontSize: 16, color: "#ffffff" }}>
+                  <span style={{ fontSize: 18, color: "#ffffff" }}>
                     £{subtotal.toLocaleString()}
                   </span>
                 </div>
 
                 {savings > 0 && (
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 7 }}>
-                    <span style={{ fontSize: 16, color: "#f5a623" }}>
+                    <span style={{ fontSize: 18, color: "#f5a623" }}>
                       Discount (£{discountPer}/specialist)
                     </span>
-                    <span style={{ fontSize: 16, color: "#f5a623" }}>
+                    <span style={{ fontSize: 18, color: "#f5a623" }}>
                       −£{savings.toLocaleString()}
                     </span>
                   </div>
@@ -190,11 +190,11 @@ export default function TeamBuilderSection() {
                 <div style={{ borderTop: "1px dashed rgba(255,255,255,.18)", margin: "9px 0" }} />
 
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 16, fontWeight: 600, color: "#ffffff" }}>
+                  <span style={{ fontSize: 18, fontWeight: 600, color: "#ffffff" }}>
                     Your monthly total
                   </span>
                   <span style={{
-                    fontSize: 26, fontWeight: 900, color: "#fff",
+                    fontSize: 20, fontWeight: 900, color: "#fff",
                     letterSpacing: "-0.05em", lineHeight: 1, transition: "all .2s",
                   }}>
                     £{monthly.toLocaleString()}
@@ -207,10 +207,10 @@ export default function TeamBuilderSection() {
             </div>
 
             {/* ══ RIGHT ══ */}
-            <div style={{ padding: "32px 30px", display: "flex", flexDirection: "column" }}>
+            <div style={{ padding: "40px 30px", display: "flex", flexDirection: "column" }}>
 
               <h2 style={{
-                fontSize: "clamp(22px,2.4vw,28px)",
+                fontSize: "clamp(22px,2.4vw,36px)",
                 fontWeight: 900,
                 color: "#f5a623",
                 fontFamily: "Roobert Font Family, Sans-serif",
@@ -222,7 +222,7 @@ export default function TeamBuilderSection() {
               </h2>
 
               <p style={{
-                fontSize: 15, lineHeight: 1.55,
+                fontSize: 18, lineHeight: 1.55,
                 color: "#ffffff",
                 margin: "0 0 16px",
                 textAlign: "left",
@@ -250,13 +250,13 @@ export default function TeamBuilderSection() {
                         display: "flex", alignItems: "center", justifyContent: "center",
                         transition: "background .2s",
                       }}>
-                        <Icon size={13} color={n > 0 ? "#f5a623" : "#ffffff"} strokeWidth={1.8} />
+                        <Icon size={18} color={n > 0 ? "#f5a623" : "#ffffff"} strokeWidth={1.8} />
                       </div>
 
                       <span style={{
-                        flex: 1, fontSize: 16, fontWeight: 600,
+                        flex: 1, fontSize: 18, fontWeight: 600,
                         color: "#ffffff",
-                        letterSpacing: "-0.01em",
+                        letterSpacing: "-0.0em",
                         textAlign: "left",
                       }}>{r.label}</span>
 
@@ -275,7 +275,7 @@ export default function TeamBuilderSection() {
                         >−</button>
 
                         <span style={{
-                          fontSize: 14, fontWeight: 700, color: "#fff",
+                          fontSize: 18, fontWeight: 700, color: "#fff",
                           minWidth: 14, textAlign: "center",
                         }}>{n}</span>
 
