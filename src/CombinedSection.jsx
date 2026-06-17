@@ -35,11 +35,11 @@ const aboutFeatures = [
 const managePoints = [
   {
     title: "Works With Your Tools",
-    desc: "Slack, Teams, Jira, ClickUp, Asana, Notion, and more.",
+    desc: "Slack, Teams, ClickUp, Asana, Notion, and more.",
   },
   {
     title: "One Simple Monthly Invoice",
-    desc: "Billed monthly in GBP. No timesheets to argue over. No surprises.",
+    desc: "Billed monthly in GBP. No timesheets to argue over.",
   },
   {
     title: "We Handle the Admin",
@@ -47,7 +47,7 @@ const managePoints = [
   },
   {
     title: "Stay in Control",
-    desc: "Regular updates and complete visibility into your team's work.",
+    desc: "Regular Updates, Total Transparency",
   },
 ];
 
@@ -67,7 +67,7 @@ function FeatureItem({ title, desc }) {
           textAlign: "justify-content,",
         }}>{title}</p>
         <p style={{
-          fontSize: 18, color: "#000000", lineHeight: 1.2, margin:0,
+          fontSize: 18, color: "#000000", lineHeight: 1.8, margin:0,fontWeight: 500,
           textAlign: "left",
         }}>{desc}</p>
       </div>
@@ -175,9 +175,9 @@ export default function CombinedSection() {
                   src={teamImg}
                   alt="Team working in office"
                   style={{
-                    width: "100%", maxWidth: 500,
-                    height: 480, objectFit: "cover",
-                    borderRadius: 14, display: "block",
+                    width: "100%", maxWidth: 600,
+                    height: 550, objectFit: "cover",
+                    borderRadius: 60, display: "block",
                     boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
                   }}
                   draggable={false}
@@ -198,12 +198,12 @@ export default function CombinedSection() {
                 <span style={{ color: "#f5a623" }}> not months.</span>
               </h2>
               <p style={{
-                fontSize: 18, color: "#000000", lineHeight: 1.3,
-                marginBottom: 18, maxWidth: 500, textAlign: "justify",letterSpacing: "-0.03em",
+                fontSize: 18, color: "#000000", lineHeight: 1.5,fontWeight: 520,
+                marginBottom: 18, maxWidth: 500, textAlign: "justify",letterSpacing: "-0.00em ",
               }}>
                 Get skilled professionals from India without recruiter fees, HR headaches, or lengthy hiring processes.
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 22, fontSize: 18, textAlign: "justify", maxWidth:430,lineHeight:1.2, }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 22, fontSize: 18, textAlign: "justify", maxWidth:500,lineHeight:1.2, }}>
                 {aboutFeatures.map((f, i) => (
                   <FeatureItem key={i} title={f.title} desc={f.desc} />
                 ))}
@@ -233,7 +233,7 @@ export default function CombinedSection() {
                 color: "#000000", lineHeight: 1, letterSpacing: "-0.03em",
                 fontSize: isMobile ? 24 : isTablet ? 28 : 48,
                 marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
-                textAlign: "left",
+                textAlign: "left",maxWidth: 600,
               }}>
                 Manage your extended team like 
                  <span style={{ color: "#f5a623" }}> it's in-house.</span>
@@ -242,7 +242,7 @@ export default function CombinedSection() {
               <p style={{
                 fontSize: 18, lineHeight: 1.3, color: "#000000",
                 margin: "0 0 18px 0",
-                textAlign: "justify",maxWidth:460,letterSpacing: "-0.03em",
+                textAlign: "justify",maxWidth:460,letterSpacing: "-0.0em",
               }}>
               Same tools. Same standups. Same reporting. Just a much bigger team for a much smaller bill.
               </p>
@@ -266,8 +266,8 @@ export default function CombinedSection() {
                         {p.title}
                       </p>
                       <p style={{
-                        fontSize: 18, lineHeight: 1.2, color: "#000000",
-                        margin: 0, textAlign: "left",maxWidth:430,gap: 5,
+                        fontSize: 18, lineHeight: 1.5, color: "#000000",
+                        margin: 0, textAlign: "left",maxWidth:430,gap: 5,lineHeight:1.8
                       }}>
                         {p.desc}
                       </p>
@@ -303,9 +303,9 @@ export default function CombinedSection() {
                   src={teamOffice}
                   alt="Team working in office"
                   style={{
-                    width: "100%", maxWidth: 500,
-                    height: 480, objectFit: "cover",
-                    borderRadius: 14, display: "block",
+                    width: "100%", maxWidth: 600,
+                    height: 550, objectFit: "cover",
+                    borderRadius: 60, display: "block",
                     boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
                   }}
                   draggable={false}

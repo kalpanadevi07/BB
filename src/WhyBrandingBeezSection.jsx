@@ -1,6 +1,6 @@
 const stats = [
-  { value: "48", suffix: "hrs", desc: "To deliver your vetted shortlist" },
-  { value: "6", suffix: "+",    desc: "Specialist roles ready to deploy" },
+  { value: "48", suffix: "hrs", desc: "To deliver your vetted candidates" },
+  { value: "6", suffix: "+",    desc: "Specialist roles ready to deploy in days" },
   { value: "6", suffix: "+",    desc: "UK agencies actively using our specialists" },
 ];
 
