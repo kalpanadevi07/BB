@@ -41,7 +41,7 @@ export default function BuildTeamForm({ onBack, selectedCounts, monthly }) {
     setApiError("");
 
     try {
-      await axios.post("https://hire-ind-talents-backend.onrender.com", {
+      await axios.post("https://hire-ind-talents-backend.onrender.com/api/leads", {
         fullName:  form.fullName,
         email:     form.email,
         phone:     form.phone,
