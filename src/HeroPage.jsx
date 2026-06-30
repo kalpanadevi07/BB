@@ -308,7 +308,7 @@ function FormCard({
     if (Object.keys(e).length === 0) {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/leads",
+          "https://hire-ind-talents-backend.onrender.com",
           { fullName, email, phone, roles: selectedRoles, workTypes: selectedWork }
         );
         console.log(response.data);
