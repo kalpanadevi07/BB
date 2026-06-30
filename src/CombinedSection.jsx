@@ -51,7 +51,7 @@ const managePoints = [
   },
 ];
 
-function FeatureItem({ title, desc }) {
+function FeatureItem({ title, desc, isMobile }) {
   return (
     <div style={{ display: "flex", gap: 10, alignItems: "flex-start",textAlign: "left",maxWidth:500, }}>
       <div style={{ flexShrink: 0, marginTop: 2, alignItems: "justify-content", }}>
@@ -61,15 +61,20 @@ function FeatureItem({ title, desc }) {
         </svg>
       </div>
       <div>
-        <p style={{
-          fontFamily: "Roobert Font Family, Sans-serif", fontSize: 18, fontWeight: 700,
-          color: "#000000", lineHeight: 1.2, marginBottom: 2, marginTop: 0,
-          textAlign: "justify-content,",
-        }}>{title}</p>
-        <p style={{
-          fontSize: 18, color: "#000000", lineHeight: 1.8, margin:0,fontWeight: 500,
-          textAlign: "left",
-        }}>{desc}</p>
+       <p style={{
+  fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "#0d0d0d",
+  letterSpacing: "-0.01em", lineHeight: 1,
+  margin: "0 0 2px 0", fontFamily: "Roobert Font Family, Sans-serif",
+  textAlign: "left",
+}}>
+  {title}
+</p>
+<p style={{
+  fontSize: isMobile ? 14 : 18, lineHeight: 1.5, color: "#000000",
+  margin: 0, textAlign: "left",maxWidth:430,
+}}>
+  {desc}
+</p>
       </div>
     </div>
   );
@@ -162,51 +167,55 @@ export default function CombinedSection() {
       <div style={{ background: "#ffffff", width: "100%" }}>
         <div style={{
           maxWidth: 1330, margin: "0 auto",
-          padding: `80px ${hPad} 40px`,
+          padding: `32px ${hPad} 40px`,
         }}>
           <div style={isDesktop
-            ? { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 52, alignItems: "center" }
-            : { display: "flex", flexDirection: "column", gap: 28 }
-          }>
-            {/* LEFT — Image (desktop only) */}
-            {isDesktop && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-                <img
-                  src={teamImg}
-                  alt="Team working in office"
-                  style={{
-                    width: "100%", maxWidth: 600,
-                    height: 550, objectFit: "cover",
-                    borderRadius: 60, display: "block",
-                    boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
-                  }}
-                  draggable={false}
-                />
-              </div>
-            )}
+  ? { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 52, alignItems: "center" }
+  : { display: "flex", flexDirection: "column", gap: 20 }
+}>
+  {/* LEFT — Image (always visible, full width on mobile) */}
+ <div style={{ display: "flex", alignItems: "center", justifyContent: isDesktop ? "flex-end" : "center", marginBottom: isMobile ? 0 : 0,marginTop: isMobile ? 0 : 0, }}>
+  <img
+  src={teamImg}
+  alt="Team working in office"
+  style={{
+    width: "100%", maxWidth: "100%",
+    height: isDesktop ? 550 : isTablet ? 320 : 300,
+    objectFit: "cover",
+    objectPosition: "center 30%",
+    borderRadius: isDesktop ? 60 : 18, display: "block",
+    boxShadow: "0 8px 36px rgba(0,0,0,0.10)",
+  }}
+  draggable={false}
+/>
+  </div>
+    
 
+            
             {/* RIGHT — Content */}
-            <div style={{ textAlign: "left" }}>
-              <h2 style={{
-                fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 900,
-                color: "#000000", lineHeight: 1, letterSpacing: "-0.03em",
-                fontSize: isMobile ? 24 : isTablet ? 28 : 48,
-                marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
-                textAlign: "left",
-              }}>
+<div style={{ textAlign: "left", display: "flex", flexDirection: "column", alignItems: isMobile ? "center" : "flex-start" }}>
+  <h2 style={{
+    fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 900,
+    color: "#000000", lineHeight: 1, letterSpacing: "-0.03em",
+    fontSize: isMobile ? 26 : isTablet ? 28 : 48,
+    marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
+    textAlign: "left",
+    width: "100%",
+  }}>
                Build your dream team in days,
                 <span style={{ color: "#f5a623" }}> not months.</span>
               </h2>
               <p style={{
-                fontSize: 18, color: "#000000", lineHeight: 1.5,fontWeight: 520,
-                marginBottom: 18, maxWidth: 500, textAlign: "justify",letterSpacing: "-0.00em ",
-              }}>
-                Get skilled professionals from India without recruiter fees, HR headaches, or lengthy hiring processes.
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 22, fontSize: 18, textAlign: "justify", maxWidth:500,lineHeight:1.2, }}>
+  fontSize: isMobile ? 15 : 18, color: "#000000", lineHeight: 1.5, fontWeight: 520,
+  marginBottom: 18, maxWidth: 500, textAlign: isMobile ? "left" : "justify", letterSpacing: "-0.00em",
+  width: "100%",
+}}>
+  Get skilled professionals from India without recruiter fees, HR headaches, or lengthy hiring processes.
+</p>
+             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 22, fontSize: 18, textAlign: "left", maxWidth: 500, lineHeight: 1.2, width: "100%" }}>
                 {aboutFeatures.map((f, i) => (
-                  <FeatureItem key={i} title={f.title} desc={f.desc} />
-                ))}
+  <FeatureItem key={i} title={f.title} desc={f.desc} isMobile={isMobile} />
+))}
               </div>
               <HireButton onClick={handleHire} />
             </div>
@@ -226,26 +235,44 @@ export default function CombinedSection() {
             : { display: "flex", flexDirection: "column", gap: 28 }
           }>
 
-            {/* LEFT — Content */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-               <h2 style={{
-                fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 900,
-                color: "#000000", lineHeight: 1, letterSpacing: "-0.03em",
-                fontSize: isMobile ? 24 : isTablet ? 28 : 48,
-                marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
-                textAlign: "left",maxWidth: 600,
-              }}>
+           {/* LEFT — Content */}
+<div style={{ display: "flex", flexDirection: "column", alignItems: isMobile ? "center" : "flex-start" }}>
+  {/* mobile/tablet: image at top */}
+  {!isDesktop && (
+    <div style={{ width: "100%", marginBottom: 20 }}>
+      <img
+        src={teamOffice}
+        alt="Team working in office"
+        style={{
+          width: "100%", maxWidth: "100%",
+          height: isTablet ? 320 : 300, objectFit: "cover",
+          borderRadius: 20, display: "block",
+          boxShadow: "0 8px 28px rgba(0,0,0,0.10)",
+        }}
+        draggable={false}
+      />
+    </div>
+  )}
+  
+   <h2 style={{
+    fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 900,
+    color: "#000000", lineHeight: 1.15, letterSpacing: "-0.03em",
+    fontSize: isMobile ? 26 : isTablet ? 28 : 48,
+    marginBottom: 10, marginTop: 0,marginLeft:0,marginRight:0,
+    textAlign: "left",maxWidth: 600, width: "100%",
+  }}>
                 Manage your extended team like 
                  <span style={{ color: "#f5a623" }}> it's in-house.</span>
               </h2>
 
-              <p style={{
-                fontSize: 18, lineHeight: 1.3, color: "#000000",
-                margin: "0 0 18px 0",
-                textAlign: "justify",maxWidth:460,letterSpacing: "-0.0em",
-              }}>
-              Same tools. Same standups. Same reporting. Just a much bigger team for a much smaller bill.
-              </p>
+             <p style={{
+  fontSize: isMobile ? 15 : 18, lineHeight: 1.4, color: "#000000",fontWeight: 520,
+  margin: "0 0 18px 0",
+  textAlign: isMobile ? "left" : "justify", maxWidth:460,letterSpacing: "-0.0em",
+  width: "100%",
+}}>
+Same tools. Same standups. Same reporting. Just a much bigger team for a much smaller bill.
+</p>
 
               <ul style={{
                 display: "flex", flexDirection: "column", gap: 5, alignItems: "flex-start",
@@ -258,19 +285,19 @@ export default function CombinedSection() {
                     </div>
                     <div style={{ textAlign: "left" }}>
                       <p style={{
-                        fontSize: 18, fontWeight: 700, color: "#0d0d0d",
-                        letterSpacing: "-0.01em", lineHeight: 1.2,
-                        margin: "0 0 2px 0", fontFamily: "Roobert Font Family, Sans-serif",
-                        textAlign: "left",
-                      }}>
-                        {p.title}
-                      </p>
-                      <p style={{
-                        fontSize: 18, lineHeight: 1.5, color: "#000000",
-                        margin: 0, textAlign: "left",maxWidth:430,gap: 5,lineHeight:1.8
-                      }}>
-                        {p.desc}
-                      </p>
+  fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "#0d0d0d",
+  letterSpacing: "-0.01em", lineHeight: 1,
+  margin: "0 0 2px 0", fontFamily: "Roobert Font Family, Sans-serif",
+  textAlign: "left",
+}}>
+  {p.title}
+</p>
+<p style={{
+  fontSize: isMobile ? 14 : 18, lineHeight: 1.5, color: "#000000",
+  margin: 0, textAlign: "left",maxWidth:430,
+}}>
+  {p.desc}
+</p>
                     </div>
                   </li>
                 ))}
@@ -279,21 +306,7 @@ export default function CombinedSection() {
               {/* ← replaced plain button with HireButton */}
               <HireButton onClick={handleHire} />
 
-              {/* tablet/mobile: image below CTA */}
-              {!isDesktop && (
-                <div style={{ width: "100%", marginTop: 24 }}>
-                  <img
-                    src={teamOffice}
-                    alt="Team working in office"
-                    style={{
-                      width: "100%", maxWidth: isTablet ? 400 : "100%",
-                      height: "auto", borderRadius: 14, objectFit: "cover",
-                      display: "block", boxShadow: "0 8px 28px rgba(0,0,0,0.10)",
-                    }}
-                    draggable={false}
-                  />
-                </div>
-              )}
+              
             </div>
 
             {/* RIGHT — Image (desktop only) */}

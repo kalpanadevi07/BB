@@ -328,7 +328,7 @@ button{ font-family: "Roobert Font Family", sans-serif; cursor: pointer; border:
 .coreCapImgFrame {
   background: #ffffff;
   border-radius: 18px 18px 0 0;
-  padding: 18px 18px 0;
+  padding: 18px 1px 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;

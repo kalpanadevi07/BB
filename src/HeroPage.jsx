@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import logoImg from "./assets/BB_Logo_2.png";
 import logoImg1 from "./assets/logo1.png";
 import heroBg from "./assets/hero-bg.png";
@@ -35,6 +36,17 @@ function Hex({ cx, cy, r, o }) {
   );
 }
 
+/* ── Shared smooth scroll helpers ── */
+const scrollToForm = () => {
+  const el = document.getElementById("contact-form");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+const scrollToPricing = () => {
+  const el = document.getElementById("pricing-section");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 export default function HeroPage() {
   const [showButton, setShowButton] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -55,6 +67,7 @@ export default function HeroPage() {
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [selectedWork, setSelectedWork] = useState([]);
   const [errors, setErrors] = useState({});
@@ -63,27 +76,31 @@ export default function HeroPage() {
   const toggle = (item, list, setter) =>
     setter(list.includes(item) ? list.filter(i => i !== item) : [...list, item]);
 
-  const containerPad = isMobile ? "0 20px" : isTablet ? "0 0px" : "0 0px";
-  const heroTitleSize = isMobile ? 30 : isTablet ? 32 : 54;
-  const gridGap = isMobile ? 28 : isTablet ? 20 : 40;
+  const containerPad = isDesktop ? "clamp(0px, 4vw, 56px)" : "2px";
+  
+  const heroTitleSize = "clamp(30px, 5vw, 54px)";
+  const gridGap = isMobile ? "16px" : "clamp(20px, 3vw, 40px)";
 
-  const heroLayout = isDesktop
-    ? { display: "grid", gridTemplateColumns: "1fr minmax(0,580px)", gap: gridGap, alignItems: "start" }
-    : isTablet
-      ? { display: "grid", gridTemplateColumns: "1fr 1fr", gap: gridGap, alignItems: "start" }
-      : { display: "flex", flexDirection: "column", gap: gridGap };
+  const heroLayout = {
+    marginTop: isMobile ? 12 : isTablet ? 12 : 0,
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+    gap: gridGap,
+    alignItems: "start",
+  };
 
   const cardPad = isMobile
     ? "24px 16px 20px"
     : isTablet
       ? "20px 20px 16px"
-      : "40px 36px 32px";
+      : "60px 36px 30px";
+    
 
   const logoHeight = isMobile ? 40 : isTablet ? 44 : 52;
 
   return (
     <>
-      {/* ── Navbar — always visible ── */}
+      {/* ── Navbar ── */}
       <header style={{
         position: "fixed",
         top: 0, left: 0, right: 0,
@@ -125,10 +142,10 @@ export default function HeroPage() {
         </div>
       </header>
 
-      <div id="contact-form" style={{
+      <div style={{
         ...s.page,
-        paddingTop: isMobile ? 56 + 20 : isTablet ? 68 + 16 : 68 + 24,
-        paddingBottom: isMobile ? 24 : isTablet ? 20 : 32,
+        paddingTop: isMobile ? 56 + 16 : isTablet ? 68 + 16 : 20 + 20,
+        paddingBottom: isMobile ? 20 : isTablet ? 30 : 40,
         alignItems: "flex-start",
       }}>
         <div style={{ ...s.container, padding: containerPad }}>
@@ -136,61 +153,73 @@ export default function HeroPage() {
 
             {/* LEFT */}
             <div style={{
-              textAlign: "left",
+              textAlign: isMobile ? "center" : "left",
               maxWidth: isDesktop ? 760 : "100%",
               width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: isMobile ? "center" : "flex-start",
             }}>
               <div style={{
-                marginBottom: isMobile ? 22 : 22,
-                marginTop: isMobile ? 12 : isTablet ? 12 : 60,
+                marginBottom: isMobile ? 10 : 2,
+                marginTop: isMobile ? 0 : isTablet ? 12 : 50,
                 fontSize: 14, color: "#1e1233", fontWeight: 600,
                 display: "inline-flex", alignItems: "center", gap: 15,
+                justifyContent: "center",
               }}>
                 <span style={s.badgePill}>
                   <span style={s.badgeDot} />
                   Onboarding new specialists this week
                 </span>
               </div>
-              <br />
-              <h1 style={{ ...s.heroTitle, fontSize: heroTitleSize }}>
+              {!isMobile && <br />}
+              <h1 style={{
+                ...s.heroTitle,
+                fontSize: heroTitleSize,
+                textAlign: isMobile ? "center" : "left",
+                marginTop: isMobile ? 14 : 18,
+              }}>
                 Hire Indian talents
                 <span style={s.heroAccent}>in 7 days.</span>
               </h1>
 
               <p style={{
-                ...s.heroDesc, fontSize: 20,
-                marginTop: isMobile ? 12 : isTablet ? 12 : 0,
-                marginBottom: isMobile ? 20 : isTablet ? 20 : 10,
-                maxWidth: isDesktop ? 520 : "100%",
+                ...s.heroDesc, fontSize: isMobile ? 16 : 20,
+                marginTop: isMobile ? 10 : isTablet ? 12 : 0,
+                marginBottom: isMobile ? 25 : isTablet ? 20 : 10,
+                maxWidth: isDesktop ? 520 : isMobile ? 320 : "100%",
+                textAlign: isMobile ? "center" : "left",
               }}>
                 Plug a vetted developer, designer or marketer straight into your
                 team. They work full-time on your projects, in your tools, on your
-                time zone. BrandingBeez handles the rest.
+                time zone. BrandingBeez handles<br/>the rest.
               </p>
-              <br />
-
+              {!isMobile && <br />}
               <HoverButton compact={isTablet || isDesktop} />
-              <br />
+              {!isMobile && <br />}
               <div style={{
                 ...s.trustRow,
                 gap: isMobile ? 12 : isTablet ? 14 : 18,
-                marginTop: isMobile ? 22 : isTablet ? 20 : 35,
+                marginTop: isMobile ? 15 : isTablet ? 20 : 35,
+                marginBottom: isMobile ? 0 : isTablet ? 20 : 30,
+                justifyContent: isMobile ? "center" : "flex-start",
               }}>
-                <TrustItem label="Only experts" compact={isTablet || isDesktop} />
-                <TrustItem label="Good communication" compact={isTablet || isDesktop} />
-                <TrustItem label="No drama" compact={isTablet || isDesktop} />
+                <TrustItem label="Only experts" compact={isTablet || isDesktop || isMobile} />
+                <TrustItem label="Good communication" compact={isTablet || isDesktop || isMobile} />
+                <TrustItem label="No drama" compact={isTablet || isDesktop || isMobile} />
               </div>
             </div>
 
             {/* RIGHT — form */}
-            <div style={{ position: "relative" }}>
+            <div id="contact-form" style={{position: "relative" }}>
               <FormCard
-                cardPad={cardPad} isTablet={isTablet} isDesktop={isDesktop}
+                cardPad={cardPad} isTablet={isTablet} isDesktop={isDesktop} isMobile={isMobile}
                 fullName={fullName} setFullName={setFullName}
                 email={email} setEmail={setEmail}
+                phone={phone} setPhone={setPhone}
                 selectedRoles={selectedRoles} setSelectedRoles={setSelectedRoles}
                 selectedWork={selectedWork} setSelectedWork={setSelectedWork}
-                toggle={toggle} beeImg={beeImg}
+                toggle={toggle}
                 errors={errors} setErrors={setErrors}
                 submitted={submitted} setSubmitted={setSubmitted}
               />
@@ -203,19 +232,20 @@ export default function HeroPage() {
   );
 }
 
-/* ══ Sticky header CTA — slide-up effect ══ */
+/* ══ Sticky header CTA — smooth scrolls to #pricing-section ══ */
 function StickyBtn({ compact }) {
   const [hov, setHov] = useState(false);
-  const label = "Start a Project ";
+  const label = "Hire for me";
   return (
     <button
+      onClick={scrollToPricing}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
         background: hov ? "#f5a623" : "#28174f",
-        color: hov? "#28174f" : "#ffffff",
+        color: hov ? "#28174f" : "#ffffff",
         fontFamily: "Roobert Font Family, Sans-serif",
-        fontSize: compact ? 16 : 16,
+        fontSize: 16,
         fontWeight: 700,
         padding: compact ? "9px 16px" : "11px 24px",
         borderRadius: 50,
@@ -223,7 +253,7 @@ function StickyBtn({ compact }) {
         cursor: "pointer",
         whiteSpace: "nowrap",
         letterSpacing: "-0.01em",
-        transition: "background 0.2s",
+        transition: "background 0.2s, color 0.2s",
         position: "relative",
         overflow: "hidden",
         height: compact ? 38 : 44,
@@ -233,47 +263,65 @@ function StickyBtn({ compact }) {
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: compact ? 16 : 16,
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: 16,
         transform: hov ? "translateY(-100%)" : "translateY(0%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 700, fontSize: compact ? 16 : 16,
+        whiteSpace: "nowrap", fontWeight: 700, fontSize: 16,
         transform: hov ? "translateY(0%)" : "translateY(100%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
-      <span style={{ visibility: "hidden", fontWeight: 700, fontSize: compact ? 16 : 16 }}>{label}</span>
+      <span style={{ visibility: "hidden", fontWeight: 700, fontSize: 16 }}>{label}</span>
     </button>
   );
 }
 
 /* ══ Form card ══ */
 function FormCard({
-  cardPad, isTablet, isDesktop,
+  cardPad, isTablet, isDesktop, isMobile,
   fullName, setFullName,
   email, setEmail,
   selectedRoles, setSelectedRoles,
   selectedWork, setSelectedWork,
-  toggle, beeImg,
+  phone, setPhone,
+  toggle,
   errors, setErrors, submitted, setSubmitted,
 }) {
   const validate = () => {
     const e = {};
     if (!fullName.trim()) e.fullName = true;
     if (!email.trim()) e.email = true;
+    if (!phone.trim()) e.phone = true;
     if (selectedRoles.length === 0) e.roles = true;
     if (selectedWork.length === 0) e.work = true;
     return e;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const e = validate();
     setErrors(e);
     setSubmitted(true);
+
     if (Object.keys(e).length === 0) {
-      console.log("Form submitted successfully");
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/leads",
+          { fullName, email, phone, roles: selectedRoles, workTypes: selectedWork }
+        );
+        console.log(response.data);
+        alert("Form submitted successfully!");
+        setFullName("");
+        setEmail("");
+        setSelectedRoles([]);
+        setSelectedWork([]);
+        setPhone("");
+      } catch (error) {
+        console.error(error);
+        alert("Submission failed");
+      }
     }
   };
 
@@ -284,33 +332,33 @@ function FormCard({
   );
 
   return (
-    <div style={{ ...s.card, padding: cardPad, minHeight: "600px", marginTop: 45 }}>
-      <div style={{
-        ...s.cardNotification,
-        width: isTablet ? 36 : 42, height: isTablet ? 36 : 42,
-        top: isTablet ? -13 : -16, right: isTablet ? 18 : 24,
-      }}>
-        <img src={beeImg} alt="bee" style={{ width: isTablet ? 18 : 22, height: isTablet ? 18 : 22, objectFit: "contain" }} />
-      </div>
+    <div style={{
+      ...s.card,
+      padding: cardPad,
+      minHeight: isMobile ? "auto" : "clamp(480px, 70vh, 600px)",
+      marginTop: isMobile ? 0 : 45,
+    }}>
+    
 
-      <h2 style={{ ...s.cardTitle, textAlign: "left", fontSize: isTablet ? 15 : isDesktop ? 28 : 28, marginBottom: isTablet ? 3 : 8 }}>
+      <h2 style={{ ...s.cardTitle, textAlign: "left", fontSize: isMobile ? 22 : isTablet ? 15 : 28, marginBottom: isMobile ? 6 : isTablet ? 3 : 10 }}>
         Let's find your person
       </h2>
-      <p style={{ ...s.cardSubtitle, textAlign: "left", fontSize: isTablet ? 11 : isDesktop ? 14 : 14, marginBottom: isTablet ? 10 : isDesktop ? 20 : 24, marginTop: 10 }}>
+      <p style={{ ...s.cardSubtitle, textAlign: "left", fontSize: isMobile ? 13 : isTablet ? 11 : 16, marginBottom: isMobile ? 16 : isTablet ? 10 : 10, marginTop: isMobile ? 40 : isTablet ? 40 : 25 }}>
         Tell us what you need. We'll set up a quick call to confirm fit, then send specialist profiles within 24 hours.
       </p>
 
       {[
-        { label: "Full name*", type: "text", ph: "Jane Doe", val: fullName, set: setFullName, errKey: "fullName" },
-        { label: "Company email*", type: "email", ph: "jane@company.com", val: email, set: setEmail, errKey: "email" },
+        { label: "Full name*",     type: "text",  ph: "Jane Doe",         val: fullName, set: setFullName, errKey: "fullName" },
+        { label: "Company email*", type: "email", ph: "jane@company.com", val: email,    set: setEmail,    errKey: "email"    },
+        { label: "Phone number",   type: "tel",   ph: "+44 1234 567890",  val: phone,    set: setPhone,    errKey: "phone"    },
       ].map(f => (
-        <div key={f.label} style={{ ...s.field, marginBottom: isTablet ? 8 : isDesktop ? 10 : 10 }}>
-          <label style={{ ...s.fieldLabel, fontSize: isTablet ? 11.5 : isDesktop ? 14 : 13 }}>{f.label}</label>
+        <div key={f.label} style={{ ...s.field, marginBottom: isMobile ? 10 : isTablet ? 8 : 10 }}>
+          <label style={{ ...s.fieldLabel, fontSize: isMobile ? 13 : isTablet ? 11.5 : 16, marginBottom: isMobile ? 5 : 8 }}>{f.label}</label>
           <input
             style={{
               ...s.fieldInput,
-              padding: isTablet ? "7px 11px" : isDesktop ? "8px 8px" : "11px 15px",
-              fontSize: isTablet ? 12.5 : isDesktop ? 14 : 14,
+              padding: isMobile ? "9px 12px" : isTablet ? "7px 11px" : "8px 8px",
+              fontSize: isMobile ? 13 : isTablet ? 12.5 : 14,
               borderColor: submitted && errors[f.errKey] ? "#dc2626" : "#d1d5db",
             }}
             type={f.type}
@@ -321,27 +369,28 @@ function FormCard({
               if (submitted) setErrors(prev => ({ ...prev, [f.errKey]: !e.target.value.trim() }));
             }}
             onFocus={e => (e.target.style.borderColor = submitted && errors[f.errKey] ? "#dc2626" : "#1e1233")}
-            onBlur={e => (e.target.style.borderColor = submitted && errors[f.errKey] ? "#dc2626" : "#d1d5db")}
+            onBlur={e =>  (e.target.style.borderColor = submitted && errors[f.errKey] ? "#dc2626" : "#d1d5db")}
           />
           {submitted && errors[f.errKey] && errMsg}
         </div>
       ))}
 
       {[
-        { label: "Roles you're after*", opts: ROLE_OPTIONS, sel: selectedRoles, setSel: setSelectedRoles, errKey: "roles" },
-        { label: "How do you want to work with them?*", opts: WORK_OPTIONS, sel: selectedWork, setSel: setSelectedWork, errKey: "work" },
+        { label: "Roles you're after*",                 opts: ROLE_OPTIONS, sel: selectedRoles, setSel: setSelectedRoles, errKey: "roles" },
+        { label: "How do you want to work with them?*", opts: WORK_OPTIONS,  sel: selectedWork,  setSel: setSelectedWork,  errKey: "work"  },
       ].map(g => (
-        <div key={g.label} style={{ marginBottom: 4 }}>
+        <div key={g.label} style={{ marginBottom: isMobile ? 6 : 4 }}>
           <span style={{
             ...s.groupLabel, display: "block", textAlign: "left",
-            marginTop: isTablet ? 8 : isDesktop ? 4 : 4,
-            marginBottom: isTablet ? 5 : isDesktop ? 6 : 6,
-            fontSize: isTablet ? 11.5 : isDesktop ? 14 : 13,
+            marginTop: isMobile ? 6 : isTablet ? 8 : 4,
+            marginBottom: isMobile ? 6 : isTablet ? 5 : 6,
+            fontSize: isMobile ? 13 : isTablet ? 11.5 : 16,
           }}>{g.label}</span>
-          <div style={{ ...s.tagGroup, gap: isTablet ? 5 : isDesktop ? 4 : 4 }}>
+          <div style={{ ...s.tagGroup, gap: isMobile ? 6 : isTablet ? 5 : 4 }}>
             {g.opts.map(opt => (
               <Tag key={opt} label={opt} compact={isTablet}
                 active={g.sel.includes(opt)}
+                highlight={opt === "Web Dev" || opt === "Full-time"}
                 onClick={() => {
                   toggle(opt, g.sel, g.setSel);
                   if (submitted) setErrors(prev => ({ ...prev, [g.errKey]: false }));
@@ -353,25 +402,28 @@ function FormCard({
         </div>
       ))}
 
-      <SubmitButton compact={isTablet} onClick={handleSubmit} />
+      <SubmitButton compact={isTablet} onClick={handleSubmit} isMobile={isMobile} />
 
-      <p style={{ ...s.finePrint, marginTop: isTablet ? 8 : isDesktop ? 14 : 13, fontSize: isTablet ? 10.5 : isDesktop ? 14 : 11.5 }}>
+      <p style={{ ...s.finePrint, marginTop: isMobile ? 10 : isTablet ? 8 : 14, fontSize: isMobile ? 9 : isTablet ? 10.5 : 14 }}>
         By submitting, you agree to be contacted about our services per our{" "}
-        <a href="#" style={s.finePrintLink}>
-          <br />Privacy Policy &amp; Terms.</a>
+        <a href="#" style={s.finePrintLink}><br />Privacy Policy &amp; Terms.</a>
       </p>
     </div>
   );
 }
 
 /* ══ Sub-components ══ */
-function Tag({ label, active, onClick, compact }) {
+function Tag({ label, active, onClick, compact, highlight }) {
   const [hov, setHov] = useState(false);
+  const highlightStyle = highlight && !active
+    ? { background: "#f5a623", opacity: 1, border: "1.5px solid #1e1233", color: "#1e1233" }
+    : {};
   return (
     <span onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{
-        ...s.tag, padding: compact ? "4px 6px" : "8px 12px", fontSize: compact ? 8 : 12,
-        ...(active ? s.tagActive : hov ? { borderColor: "#1e1233", color: "#1e1233" } : {}),
+        ...s.tag, padding: compact ? "4px 6px" : "8px 12px", fontSize: compact ? 10.5 : 12.5,
+        ...highlightStyle,
+        ...(active ? s.tagActive : hov && !highlight ? { borderColor: "#1e1233", color: "#1e1233" } : {}),
       }}
     >{label}</span>
   );
@@ -380,8 +432,7 @@ function Tag({ label, active, onClick, compact }) {
 function HoverButton({ compact }) {
   const [hov, setHov] = useState(false);
   const label = "See how it works";
-  const fs = compact ? 18 : 18;
-
+  const fs = 18;
   return (
     <button
       onMouseEnter={() => setHov(true)}
@@ -391,12 +442,14 @@ function HoverButton({ compact }) {
         fontSize: fs,
         paddingLeft: compact ? 18 : 22,
         paddingRight: 6,
-        background: hov? "#f5a623" : "#ffffff",
-        color: hov? "#28174f" : "#28174f",
+        background: hov ? "#f5a623" : "#ffffff",
+        color: "#28174f",
         transition: "background 0.22s ease",
         height: compact ? 46 : 52,
         gap: 0,
         overflow: "hidden",
+        marginTop: compact ? 1 : 0,
+        marginBottom: compact ? -20 : 20,
       }}
     >
       <div style={{
@@ -425,12 +478,11 @@ function HoverButton({ compact }) {
   );
 }
 
-function SubmitButton({ compact, onClick }) {
+function SubmitButton({ compact, onClick, isMobile }) {
   const [hov, setHov] = useState(false);
   const label = "Hire for my company";
-  const fs = compact ? 13 : 18;
-  const height = compact ? 42 : 56;
-
+  const fs = compact ? 13 : isMobile ? 15 : 18;
+  const height = compact ? 42 : isMobile ? 48 : 56;
   return (
     <button
       onClick={onClick}
@@ -438,9 +490,9 @@ function SubmitButton({ compact, onClick }) {
       onMouseLeave={() => setHov(false)}
       style={{
         ...s.btnPrimary, padding: 0, height, fontSize: fs,
-        marginTop: compact ? 10 : 24,
-        background: hov? "#f5a623" : "#28174f",
-        color: hov? "#28174f" : "#ffffff",
+        marginTop: compact ? 10 : isMobile ? 14 : 24,
+        background: hov ? "#f5a623" : "#28174f",
+        color: hov ? "#28174f" : "#ffffff",
         boxShadow: hov ? "0 8px 24px rgba(30,18,51,0.35)" : "none",
         transform: hov ? "translateY(-1px)" : "translateY(0)",
         transition: "all 0.22s ease",
@@ -466,7 +518,7 @@ function SubmitButton({ compact, onClick }) {
 
 function TrustItem({ label, compact }) {
   return (
-    <div style={{ ...s.trustItem, fontSize: compact ? 14 : 14 }}>
+    <div style={{ ...s.trustItem, fontSize: compact ? 14 : 14  }}>
       <svg width={compact ? 18 : 20} height={compact ? 18 : 20} viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
         <circle cx="10" cy="10" r="10" fill="#f5a623" />
         <path d="M5.5 10.5l3 3 6-6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -497,7 +549,7 @@ const s = {
     borderRadius: 100, padding: "7px 16px", fontSize: 14, color: "#ffffff",
   },
   badgeDot: { width: 8, height: 8, background: "#22c55e", borderRadius: "50%", boxShadow: "0 0 7px #22c55e", flexShrink: 0 },
-  heroTitle: { fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 600, color: "#ffffff", lineHeight: 1.1, letterSpacing: "-1.12px", marginTop: 18 },
+  heroTitle: { fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 600, color: "#ffffff", lineHeight: 1.1, letterSpacing: "-1.12px" },
   heroAccent: { color: "#f5a623", fontWeight: 600, display: "block", lineHeight: 1.1, letterSpacing: "-1.12px" },
   heroDesc: { color: "#ffffff", lineHeight: 1.3, textAlign: "left" },
   btnDark: {
@@ -507,11 +559,11 @@ const s = {
     fontWeight: 600, borderRadius: 100, cursor: "pointer", transition: "background 0.22s ease",
   },
   trustRow: { display: "flex", flexWrap: "wrap", alignItems: "center" },
-  trustItem: { display: "flex", alignItems: "center", gap: 7, color: "#ffffff", fontWeight: 500 },
+  trustItem: { display: "flex", alignItems: "center", gap: 7, color: "#ffffff", fontWeight: 500,marginTop: 0},
   card: { background: "#ffffff", borderRadius: 20, boxShadow: "0 24px 70px rgba(0,0,0,0.38)", position: "relative" },
-  cardNotification: { position: "absolute", background: "#e85d8a", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 14px rgba(232,93,138,0.5)" },
-  cardTitle: { fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 700, color: "#111827" },
-  cardSubtitle: { color: "#0d0d0d", lineHeight: 1.5 },
+ 
+  cardTitle: { position: "absolute", fontFamily: "Roobert Font Family, Sans-serif", fontWeight: 700, color: "#111827", marginTop: 0, top: 30 },
+  cardSubtitle: { color: "#0d0d0d", lineHeight: 1.5, top: 0, marginTop: 0, marginBottom: 20 },
   field: {},
   fieldLabel: { display: "block", fontWeight: 500, color: "#000000", marginBottom: 8, textAlign: "left" },
   fieldInput: { width: "100%", border: "1.5px solid #d1d5db", borderRadius: 9, fontFamily: "Roobert Font Family, Sans-serif", fontSize: 14, color: "#111827", outline: "none", background: "#fff", transition: "border-color 0.2s ease", boxSizing: "border-box" },

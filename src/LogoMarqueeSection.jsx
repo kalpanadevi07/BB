@@ -1,15 +1,5 @@
 // ─────────────────────────────────────────────────────────────────
 //  LogoMarqueeSection.jsx
-//
-//  Copy your logo PNGs into src/assets/ like this:
-//    src/assets/logo-1.png   (The Economist)
-//    src/assets/logo-2.png   (Darwinbox)
-//    src/assets/logo-3.png   (SoFi)
-//    src/assets/logo-4.png   (Rightship)
-//    src/assets/logo-5.png   (PwC)
-//    src/assets/logo-6.png   (Korn Ferry)
-//    src/assets/logo-7.png   (Eposnow)
-//    src/assets/logo-8.png   (add as many as you have)
 // ─────────────────────────────────────────────────────────────────
 
 import logo1 from "./assets/logo-1.png";
@@ -38,7 +28,7 @@ const track = [...logos, ...logos, ...logos, ...logos];
 export default function LogoMarqueeSection() {
   return (
     <>
-      <section style={{
+      <section className="logo-marquee-section" style={{
         width: "100%",
         background: "#ffffff",
         borderTop: "1px solid #f0eef8",
@@ -46,6 +36,7 @@ export default function LogoMarqueeSection() {
         padding: "24px 0",
         overflow: "hidden",
         fontFamily: "Roobert Font Family, Sans-serif",
+        marginbottom: 0,
       }}>
         {/* scrolling track */}
         <div className="marquee-track"
@@ -55,12 +46,12 @@ export default function LogoMarqueeSection() {
           animation: "marquee 60s linear infinite",
         }}>
           {track.map((logo, i) => (
-            <div key={i} style={{
+            <div key={i} className="logo-item" style={{
               flexShrink: 0,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "0 70px",
+              padding: "0 90px",
               height: 56,
             }}>
               <img
@@ -83,7 +74,7 @@ export default function LogoMarqueeSection() {
         </div>
       </section>
 
-      {/* keyframe in a <style> tag — no CSS file needed */}
+      {/* keyframe + mobile-only overrides */}
       <style>{`
   .marquee-track:hover {
     animation-play-state: paused;
@@ -95,6 +86,21 @@ export default function LogoMarqueeSection() {
     }
     to {
       transform: translateX(-25%);
+    }
+  }
+
+  /* ── Mobile-only spacing reduction ── */
+  @media (max-width: 640px) {
+    .logo-marquee-section {
+      padding: 12px 0 !important;
+    }
+    .logo-item {
+      padding: 0 28px !important;
+      height: 36px !important;
+    }
+    .logo-item img {
+      height: 36px !important;
+      max-width: 100px !important;
     }
   }
 `}</style>

@@ -6,7 +6,7 @@ const stats = [
 
 const WhyBrandingBeezSection = () => (
   <>
-    <section style={{
+    <section className="why-section" style={{
       width: "100%",
       background: "#f5a623",
       padding: "80px 48px",
@@ -16,7 +16,7 @@ const WhyBrandingBeezSection = () => (
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Heading */}
-        <h2 style={{
+        <h2 className="why-heading" style={{
           textAlign: "center",
           fontSize: "64px",
           fontWeight: 900,
@@ -44,7 +44,7 @@ const WhyBrandingBeezSection = () => (
               maxWidth: "300px",
             }}>
               {/* White pill badge */}
-              <div style={{
+              <div className="why-pill" style={{
                 background: "#ffffff",
                 borderRadius: "100px",
                 padding: "22px 36px",
@@ -54,7 +54,7 @@ const WhyBrandingBeezSection = () => (
                 boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
                 minWidth: "160px",
               }}>
-                <span style={{
+                <span className="why-value" style={{
                   fontSize: "72px",
                   fontWeight: 900,
                   letterSpacing: "-0.05em",
@@ -64,7 +64,7 @@ const WhyBrandingBeezSection = () => (
                   {s.value}
                 </span>
                 {s.suffix && (
-                  <span style={{
+                  <span className="why-value" style={{
                     fontSize: "72px",
                     fontWeight: 900,
                     letterSpacing: "-0.03em",
@@ -78,7 +78,7 @@ const WhyBrandingBeezSection = () => (
               </div>
 
               {/* Description */}
-              <p style={{
+              <p className="why-desc" style={{
                 fontSize: "20px",
                 fontWeight: 600,
                 color: "#0d0d0d",
@@ -97,16 +97,83 @@ const WhyBrandingBeezSection = () => (
     </section>
 
     <style>{`
-      @media (max-width: 315px) {
+     /* ── Tablet ── */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .why-section {
+    padding: 56px 32px !important;
+  }
+  .why-heading {
+    font-size: 40px !important;
+    margin-bottom: 36px !important;
+  }
+  .whyGrid {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+  }
+  .whyStat {
+    flex: none !important;
+    gap: 8px !important;
+    max-width: 480px !important;
+    width: 100%;
+    background: #ffffff !important;
+    border-radius: 20px !important;
+    padding: 22px 24px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+  }
+  .why-pill {
+    padding: 0 !important;
+    min-width: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  .why-value {
+    font-size: 40px !important;
+  }
+  .why-desc {
+    font-size: 17px !important;
+    max-width: 320px !important;
+    font-weight: 600 !important;
+  }
+}
+      /* ── Mobile ── */
+      @media (max-width: 768px) {
+        .why-section {
+          padding: 32px 20px !important;
+        }
+        .why-heading {
+          font-size: 26px !important;
+          margin-bottom: 24px !important;
+        }
         .whyGrid {
           flex-direction: column !important;
           align-items: center !important;
-          gap: 10px !important;       /* ← reduced from 40px to 20px */
+          gap: 16px !important;
         }
         .whyStat {
-          gap: 10px !important;       /* ← tighter gap between pill and text */
+          flex: none !important;
+          gap: 6px !important;
           max-width: 100% !important;
           width: 100%;
+          background: #ffffff !important;
+          border-radius: 18px !important;
+          padding: 16px 16px !important;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+        }
+        .why-pill {
+          padding: 0 !important;
+          min-width: 0 !important;
+          box-shadow: none !important;
+          background: transparent !important;
+        }
+        .why-value {
+          font-size: 26px !important;
+        }
+        .why-desc {
+          font-size: 13px !important;
+          max-width: 240px !important;
+          font-weight: 600 !important;
+          line-height: 1.4 !important;
         }
       }
     `}</style>

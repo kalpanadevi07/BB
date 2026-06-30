@@ -11,8 +11,8 @@ function useWindowWidth() {
 }
 
 const stats = [
-  { number: "48hrs",  label: "Shortlist\ndelivery" },
-  { number: "6+",     label: "UK agencies using\nour specialists" },
+  { number: "48hrs",  label: "Deliver your \nvetted candidates" },
+  { number: "5+",     label: "UK agencies using our\nspecialists" },
   { number: "7 days", label: "To live in your\nworkflow" },
 ];
 
@@ -36,7 +36,7 @@ export default function CTASection() {
         <div style={{
           background: "#f5a623",
           borderRadius: 20,
-          padding: isMobile ? "40px 24px" : isTablet ? "48px 40px" : "56px 60px",
+          padding: isMobile ? "40px 16px" : isTablet ? "48px 40px" : "56px 60px",
           position: "relative",
           overflow: "hidden",
         }}>
@@ -90,9 +90,9 @@ export default function CTASection() {
               Ready when you are.
             </h2>
 
-             <div>
-            <GetStartedButton onClick={handleGetStarted} />
-              </div>
+            <div>
+              <GetStartedButton onClick={handleGetStarted} />
+            </div>
 
             {/* Divider */}
             <div style={{
@@ -107,27 +107,35 @@ export default function CTASection() {
             <div style={{
               display: "flex",
               justifyContent: "center",
-              gap: isMobile ? 24 : 64,
-              flexWrap: "wrap",
+              alignItems: "flex-start",
+              gap: isMobile ? 0 : 48,
+              flexWrap: "nowrap",
               marginBottom: 36,
             }}>
               {stats.map((stat, i) => (
-                <div key={i} style={{ textAlign: "center" }}>
+                <div key={i} style={{
+                  textAlign: "center",
+                  /* On mobile: equal thirds with dividers via border */
+                  flex: isMobile ? "1 1 0" : "0 0 auto",
+                  borderRight: isMobile && i < stats.length - 1
+                    ? "1px solid rgba(30,15,60,0.18)"
+                    : "none",
+                  padding: isMobile ? "0 6px" : "0",
+                }}>
                   <div style={{
                     fontFamily: "Roobert Font Family, Sans-serif",
-                    fontSize: isMobile ? 24 : 40,
+                    fontSize: isMobile ? 18 : isTablet ? 28 : 40,
                     fontWeight: 800,
                     color: "#1e0f3c",
                     lineHeight: 1,
-                    marginBottom: 8,
+                    marginBottom: isMobile ? 5 : 8,
                   }}>
                     {stat.number}
                   </div>
                   <div style={{
-                    fontSize: 16,
+                    fontSize: isMobile ? 11 : 16,
                     color: "#000000",
-                    opacity: 1,
-                    lineHeight: 1.5,
+                    lineHeight: 1.4,
                     whiteSpace: "pre-line",
                   }}>
                     {stat.label}
@@ -158,8 +166,8 @@ function GetStartedButton({ onClick }) {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: hovered ? "#2a1650" : "#1e0f3c",
-        color: "#ffffff",
+        background: hovered ? "#ffffff" : "#2a1650",
+        color: hovered ? "#2a1650" : "#ffffff",
         border: "none",
         outline: "none",
         boxShadow: "none",
@@ -177,7 +185,6 @@ function GetStartedButton({ onClick }) {
         overflow: "hidden",
       }}
     >
-      {/* Text 1 — slides out upward */}
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
@@ -186,7 +193,6 @@ function GetStartedButton({ onClick }) {
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
 
-      {/* Text 2 — slides in from below */}
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
@@ -195,7 +201,6 @@ function GetStartedButton({ onClick }) {
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
 
-      {/* Spacer — keeps button width stable */}
       <span style={{ visibility: "hidden", fontWeight: 600, fontSize: 20 }}>{label}</span>
     </button>
   );

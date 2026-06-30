@@ -27,24 +27,19 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
-  const handleTalkToUs = () => {
-    const el = document.getElementById("contact-form");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
     <div style={{ background: "#ffffff", width: "100%" }}>
       <div style={{
         maxWidth: 1200,
         margin: "0 auto",
-        padding: isMobile ? "48px 20px" : isTablet ? "60px 32px" : "72px 40px",
+        padding: isMobile ? "28px 20px" : isTablet ? "60px 32px" : "72px 40px",
       }}>
         <div style={{
           display: "flex",
           flexDirection: isMobile || isTablet ? "column" : "row",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          gap: isDesktop ? 60 : 40,
+          gap: isMobile ? 20 : isDesktop ? 60 : 40,
         }}>
 
           {/* LEFT */}
@@ -53,20 +48,45 @@ export default function FAQSection() {
             width: isDesktop ? "35%" : "100%",
             textAlign: "left",
           }}>
-            <h2 style={{
-              fontFamily: "Roobert Font Family, Sans-serif",
-              fontSize: isMobile ? 38 : isTablet ? 36 : 48,
-              fontWeight: 800,
-              color: "#000000",
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-              marginBottom: 24,
-              marginTop: 0,
-            }}>
-              Questions,<br />answered.
-            </h2>
-
-            <TalkButton onClick={handleTalkToUs} />
+            {/* Mobile: heading and button side by side */}
+            {isMobile ? (
+              <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
+                marginBottom: 14,
+              }}>
+                <h2 style={{
+                  fontFamily: "Roobert Font Family, Sans-serif",
+                  fontSize: 24,
+                  fontWeight: 800,
+                  color: "#000000",
+                  lineHeight: 1.12,
+                  letterSpacing: "-0.02em",
+                  margin: 0,
+                }}>
+                  Questions,<br />answered.
+                </h2>
+                <TalkButton isMobile={isMobile} />
+              </div>
+            ) : (
+              <>
+                <h2 style={{
+                  fontFamily: "Roobert Font Family, Sans-serif",
+                  fontSize: isTablet ? 36 : 48,
+                  fontWeight: 800,
+                  color: "#000000",
+                  lineHeight: 1.12,
+                  letterSpacing: "-0.02em",
+                  marginBottom: 24,
+                  marginTop: 0,
+                }}>
+                  Questions,<br />answered.
+                </h2>
+                <TalkButton isMobile={false} />
+              </>
+            )}
           </div>
 
           {/* RIGHT — FAQ list */}
@@ -74,7 +94,7 @@ export default function FAQSection() {
             flex: 1,
             display: "flex",
             flexDirection: "column",
-            gap: 10,
+            gap: isMobile ? 8 : 10,
             width: "100%",
           }}>
             {faqs.map((faq, i) => (
@@ -83,6 +103,7 @@ export default function FAQSection() {
                 faq={faq}
                 isOpen={openIndex === i}
                 onToggle={() => toggle(i)}
+                isMobile={isMobile}
               />
             ))}
           </div>
@@ -93,11 +114,11 @@ export default function FAQSection() {
   );
 }
 
-function FAQItem({ faq, isOpen, onToggle }) {
+function FAQItem({ faq, isOpen, onToggle, isMobile }) {
   return (
     <div style={{
       border: isOpen ? "1.5px solid #f5a623" : "1.5px solid #ede5d8",
-      borderRadius: 12,
+      borderRadius: isMobile ? 10 : 12,
       background: "#fdf8f2",
       overflow: "hidden",
       transition: "border-color 0.2s ease",
@@ -109,18 +130,18 @@ function FAQItem({ faq, isOpen, onToggle }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "18px 22px",
+          padding: isMobile ? "12px 14px" : "18px 22px",
           background: "transparent",
           border: "none",
           outline: "none",
           cursor: "pointer",
           textAlign: "left",
-          gap: 16,
+          gap: isMobile ? 10 : 16,
         }}
       >
         <span style={{
           fontFamily: "Roobert Font Family, Sans-serif",
-          fontSize: 18,
+          fontSize: isMobile ? 13.5 : 18,
           fontWeight: 600,
           color: "#000000",
           lineHeight: 1.4,
@@ -131,10 +152,10 @@ function FAQItem({ faq, isOpen, onToggle }) {
         <span style={{
           flexShrink: 0,
           color: "#f5a623",
-          fontSize: 24,
+          fontSize: isMobile ? 18 : 24,
           fontWeight: 300,
           lineHeight: 1,
-          width: 22,
+          width: isMobile ? 16 : 22,
           textAlign: "center",
         }}>
           {isOpen ? "×" : "+"}
@@ -147,12 +168,12 @@ function FAQItem({ faq, isOpen, onToggle }) {
         transition: "max-height 0.32s cubic-bezier(0.4,0,0.2,1)",
       }}>
         <p style={{
-          padding: "0 22px 18px",
+          padding: isMobile ? "0 14px 12px" : "0 22px 18px",
           margin: 0,
-          fontSize: 16,
+          fontSize: isMobile ? 12.5 : 16,
           fontWeight: 400,
           color: "#000000",
-          lineHeight: 1.65,
+          lineHeight: 1.6,
           textAlign: "left",
         }}>
           {faq.answer}
@@ -163,58 +184,59 @@ function FAQItem({ faq, isOpen, onToggle }) {
 }
 
 /* ══ Talk to us — slide-up effect ══ */
-function TalkButton({ onClick }) {
+function TalkButton({ isMobile }) {
   const [hovered, setHovered] = useState(false);
   const label = "Talk to us";
+  const fs = isMobile ? 13 : 18;
+  const height = isMobile ? 38 : 50;
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => window.open("https://calendly.com/raje-brandingbeez", "_blank")}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: hovered ? "#2a1650" : "#1e0f3c",
-        color: "#ffffff",
+        background: hovered ? "#f5a623" : "#28174f",
+        color: hovered ? "#28174f" : "#ffffff",
         border: "none",
         outline: "none",
         boxShadow: "none",
         WebkitAppearance: "none",
         appearance: "none",
         borderRadius: 100,
-        padding: "0 28px",
-        height: "50px",
+        padding: isMobile ? "0 16px" : "0 28px",
+        height: `${height}px`,
         fontFamily: "Roobert Font Family, Sans-serif",
-        fontSize: 18,
+        fontSize: fs,
         fontWeight: 600,
         cursor: "pointer",
-        transition: "background 0.22s ease",
+        transition: "background 0.22s ease, color 0.22s ease",
         position: "relative",
         overflow: "hidden",
+        whiteSpace: "nowrap",
+        flexShrink: 0,
       }}
     >
-      {/* Text 1 — slides out upward */}
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 600, fontSize: 18,
+        whiteSpace: "nowrap", fontWeight: 600, fontSize: fs,
         transform: hovered ? "translateY(-100%)" : "translateY(0%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
 
-      {/* Text 2 — slides in from below */}
       <span style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
-        whiteSpace: "nowrap", fontWeight: 600, fontSize: 18,
+        whiteSpace: "nowrap", fontWeight: 600, fontSize: fs,
         transform: hovered ? "translateY(0%)" : "translateY(100%)",
         transition: "transform 0.35s cubic-bezier(0.4,0,0.2,1)",
       }}>{label}</span>
 
-      {/* Spacer — keeps button width stable */}
-      <span style={{ visibility: "hidden", fontWeight: 600, fontSize: 20 }}>{label}</span>
+      <span style={{ visibility: "hidden", fontWeight: 600, fontSize: fs }}>{label}</span>
     </button>
   );
 }
